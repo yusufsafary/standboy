@@ -64,9 +64,18 @@ export default function Home() {
 
               {/* Right — live emulator (appears first on mobile, second on desktop) */}
               <div
-                className="flex justify-center lg:justify-end animate-fade-in-up order-1 lg:order-2"
+                className="flex flex-col items-center lg:items-end animate-fade-in-up order-1 lg:order-2"
                 style={{ animationDelay: "100ms" }}
               >
+                {/* Label above emulator */}
+                <div className="flex items-center gap-3 mb-4 w-full max-w-sm lg:max-w-none lg:justify-end">
+                  <div className="h-px flex-1 bg-border/60 lg:hidden" />
+                  <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary shrink-0">
+                    ▶ Live Demo — Try it now
+                  </p>
+                  <div className="h-px flex-1 bg-border/60 lg:hidden" />
+                </div>
+
                 {/* Glow halo behind the shell */}
                 <div className="relative">
                   <div
