@@ -18,8 +18,8 @@ export default function Home() {
           <Container className="max-w-6xl">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
-              {/* Left — copy */}
-              <div className="flex flex-col gap-7 animate-fade-in-up">
+              {/* Left — copy (appears second on mobile, first on desktop) */}
+              <div className="flex flex-col gap-7 animate-fade-in-up order-2 lg:order-1">
                 <div className="inline-flex items-center gap-2 border border-primary/40 bg-primary/5 px-4 py-1.5 text-primary text-xs font-mono uppercase tracking-widest w-fit">
                   <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
                   Status: Ready
@@ -62,9 +62,9 @@ export default function Home() {
                 </p>
               </div>
 
-              {/* Right — live emulator */}
+              {/* Right — live emulator (appears first on mobile, second on desktop) */}
               <div
-                className="flex justify-center lg:justify-end animate-fade-in-up"
+                className="flex justify-center lg:justify-end animate-fade-in-up order-1 lg:order-2"
                 style={{ animationDelay: "100ms" }}
               >
                 {/* Glow halo behind the shell */}
