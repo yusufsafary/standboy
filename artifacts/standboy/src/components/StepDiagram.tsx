@@ -1,29 +1,47 @@
-export function StepDiagram() {
-  const steps = [
-    { num: 1, title: "Agent starts generating", active: false },
-    { num: 2, title: "Standboy panel expands", active: true },
-    { num: 3, title: "Emulator resumes", active: true },
-    { num: 4, title: "Agent finishes", active: false },
-    { num: 5, title: "Standboy collapses", active: false },
-    { num: 6, title: "Emulator pauses", active: false },
-  ];
+const STEPS = [
+  { num: 1, label: "Agent starts generating",  note: "Cursor / Claude begins output",   active: false },
+  { num: 2, label: "Standboy panel expands",    note: "Sidebar opens instantly",         active: true  },
+  { num: 3, label: "Emulator resumes",          note: "Game picks up mid-frame",         active: true  },
+  { num: 4, label: "Agent finishes",            note: "Generation complete",             active: false },
+  { num: 5, label: "Standboy collapses",        note: "Panel closes automatically",      active: false },
+  { num: 6, label: "Emulator pauses",           note: "State saved for next time",       active: false },
+];
 
+export function StepDiagram() {
   return (
-    <div className="flex flex-col gap-0 max-w-lg mx-auto" data-testid="step-diagram">
-      {steps.map((step, index) => (
-        <div key={step.num} className="flex items-start gap-6">
-          <div className="flex flex-col items-center">
-            <div className={`w-8 h-8 flex items-center justify-center border-2 font-bold text-sm z-10 bg-background
-              ${step.active ? 'border-primary text-primary' : 'border-muted text-muted-foreground'}
-            `}>
+    <div className="flex flex-col" data-testid="step-diagram">
+      {STEPS.map((step, i) => (
+        <div key={step.num} className="flex gap-6 group">
+          {/* Left: number + connector */}
+          <div className="flex flex-col items-center shrink-0">
+            <div
+              className={`w-9 h-9 flex items-center justify-center border-2 font-bold text-sm z-10 font-mono
+                transition-all duration-300
+                ${step.active
+                  ? "border-primary text-primary bg-primary/10 shadow-[0_0_12px_rgba(168,255,46,0.15)]"
+                  : "border-border text-muted-foreground bg-background"}`}
+            >
               {step.num}
             </div>
-            {index < steps.length - 1 && (
-              <div className={`w-[2px] h-16 ${step.active ? 'bg-primary/50' : 'bg-muted/30'}`} />
+            {i < STEPS.length - 1 && (
+              <div
+                className={`w-px flex-1 min-h-[40px] transition-colors duration-300 ${
+                  step.active ? "bg-primary/40" : "bg-border/50"
+                }`}
+              />
             )}
           </div>
-          <div className={`mt-1 font-mono ${step.active ? 'text-foreground' : 'text-muted-foreground'}`}>
-            {step.title}
+
+          {/* Right: content */}
+          <div className={`pb-8 ${i === STEPS.length - 1 ? "pb-0" : ""}`}>
+            <p
+              className={`font-mono font-bold text-sm leading-none mt-2 transition-colors duration-300 ${
+                step.active ? "text-primary" : "text-foreground"
+              }`}
+            >
+              {step.label}
+            </p>
+            <p className="text-muted-foreground text-xs mt-1.5 leading-relaxed">{step.note}</p>
           </div>
         </div>
       ))}

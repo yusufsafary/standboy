@@ -1,87 +1,148 @@
 import { Container } from "@/components/Container";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { GameboyEmulator } from "@/components/GameboyEmulator";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { Play, Zap, EyeOff, Cpu } from "lucide-react";
 
 export default function Home() {
   return (
-    <div className="min-h-[100dvh] flex flex-col bg-background selection:bg-primary selection:text-primary-foreground">
+    <div className="min-h-[100dvh] flex flex-col bg-background">
       <Header />
-      
+
       <main className="flex-1">
-        {/* HERO */}
-        <section className="py-24 md:py-32">
-          <Container className="flex flex-col items-center text-center gap-8">
-            <div className="inline-flex items-center gap-2 border border-primary/30 bg-primary/5 px-3 py-1 text-primary text-sm font-mono uppercase">
-              <span className="w-2 h-2 bg-primary animate-pulse" />
+
+        {/* ── HERO ── */}
+        <section className="pt-28 pb-20 md:pt-36 md:pb-28">
+          <Container className="flex flex-col items-center text-center gap-8 max-w-3xl">
+            <div className="inline-flex items-center gap-2 border border-primary/40 bg-primary/5 px-4 py-1.5 text-primary text-xs font-mono uppercase tracking-widest animate-fade-in">
+              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
               Status: Ready
             </div>
-            <h1 className="max-w-3xl">Your IDE sidekick that keeps you focused</h1>
-            <p className="max-w-xl text-muted-foreground text-lg">
-              Standboy automatically shows a Game Boy emulator while your AI agent is generating code, then hides it when done. Play during the wait, stay in the zone.
+
+            <h1 className="animate-fade-in-up" style={{ animationDelay: "60ms" }}>
+              Your IDE sidekick that keeps you focused
+            </h1>
+
+            <p className="text-muted-foreground text-lg leading-relaxed max-w-xl animate-fade-in-up" style={{ animationDelay: "120ms" }}>
+              Standboy detects when your AI agent is generating code and instantly
+              opens a Game Boy emulator in your sidebar — then vanishes the moment
+              generation stops. Stay in the zone, always.
             </p>
-            
-            <Link href="/install" data-testid="hero-install">
-              <Button size="lg" className="h-14 px-8 text-lg rounded-none border border-primary bg-primary text-primary-foreground hover:bg-primary/90 font-bold group">
-                <Play className="w-5 h-5 mr-2 fill-current group-hover:scale-110 transition-transform" />
-                Install Standboy
+
+            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: "180ms" }}>
+              <Link href="/install" data-testid="hero-install">
+                <Button size="lg" className="h-13 px-8 text-base rounded-none border border-primary bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all duration-200 group">
+                  <Play className="w-4 h-4 mr-2 fill-current group-hover:scale-110 transition-transform" />
+                  Install Standboy
+                </Button>
+              </Link>
+              <Link href="/how-it-works">
+                <Button size="lg" variant="outline" className="h-13 px-8 text-base rounded-none border-border text-muted-foreground hover:text-primary hover:border-primary transition-all duration-200">
+                  How it works
+                </Button>
+              </Link>
+            </div>
+          </Container>
+        </section>
+
+        {/* ── EMULATOR ── */}
+        <section className="py-16 border-t border-border/40">
+          <Container className="max-w-sm">
+            <GameboyEmulator />
+          </Container>
+        </section>
+
+        {/* ── VALUE PROPS ── */}
+        <section className="py-24 border-t border-border/40">
+          <Container>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-border/40">
+              {[
+                {
+                  icon: <Zap className="w-5 h-5 text-primary" />,
+                  tag: "01 // AUTO-TRIGGER",
+                  title: "Auto-show on agent activity",
+                  body: "Detects when Cursor or Claude is generating and expands the panel instantly — zero setup, zero clicks.",
+                },
+                {
+                  icon: <EyeOff className="w-5 h-5 text-primary" />,
+                  tag: "02 // NO SWITCHING",
+                  title: "Zero context switching",
+                  body: "Stop tabbing to Twitter. Keep your hands on the keyboard and your attention inside the IDE.",
+                },
+                {
+                  icon: <Cpu className="w-5 h-5 text-primary" />,
+                  tag: "03 // SEAMLESS",
+                  title: "Emulator resumes mid-frame",
+                  body: "Game state is preserved every session. The moment the agent finishes, the game pauses exactly where you left off.",
+                },
+              ].map(({ icon, tag, title, body }) => (
+                <div
+                  key={tag}
+                  className="bg-background p-8 flex flex-col gap-4 hover:bg-card transition-colors duration-300 group"
+                >
+                  <div className="flex items-center gap-2">
+                    {icon}
+                    <span className="text-primary font-mono text-xs uppercase tracking-widest">{tag}</span>
+                  </div>
+                  <div className="font-bold text-lg leading-snug text-foreground">{title}</div>
+                  <p className="text-muted-foreground text-sm leading-relaxed">{body}</p>
+                </div>
+              ))}
+            </div>
+          </Container>
+        </section>
+
+        {/* ── NARRATIVE ── */}
+        <section className="py-24 border-t border-border/40 bg-card/30">
+          <Container className="max-w-2xl">
+            <div className="flex flex-col gap-8">
+              <div className="space-y-2">
+                <p className="text-primary font-mono text-xs uppercase tracking-widest">The problem</p>
+                <h2 className="leading-tight">3 seconds of waiting<br />costs 15 minutes of focus</h2>
+              </div>
+              <div className="space-y-4 text-muted-foreground leading-relaxed">
+                <p>
+                  AI agents are fast — but they're not instant. A 3-second wait for a small refactor.
+                  A 7-second wait for a new component. These micro-breaks feel harmless, but they're
+                  devastating to your flow state.
+                </p>
+                <p>
+                  When the cursor pauses, your brain hunts for dopamine. You alt-tab to Twitter.
+                  You check Slack. A 5-second generation window becomes a 15-minute distraction spiral.
+                </p>
+                <p className="text-foreground font-medium">
+                  Standboy closes that escape route — by giving your brain exactly what it needs,
+                  right inside the IDE.
+                </p>
+              </div>
+              <Link href="/about">
+                <span className="text-primary font-mono text-sm hover:underline underline-offset-4 transition-all">
+                  Read the full story →
+                </span>
+              </Link>
+            </div>
+          </Container>
+        </section>
+
+        {/* ── CTA STRIP ── */}
+        <section className="py-20 border-t border-border/40">
+          <Container className="flex flex-col sm:flex-row items-center justify-between gap-8">
+            <div>
+              <h2 className="mb-2">Ready to stay in the zone?</h2>
+              <p className="text-muted-foreground">Works with Cursor and Claude out of the box.</p>
+            </div>
+            <Link href="/install">
+              <Button size="lg" className="shrink-0 h-13 px-10 text-base rounded-none border border-primary bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all duration-200">
+                Install Now
               </Button>
             </Link>
           </Container>
         </section>
 
-        {/* EMULATOR MOCK */}
-        <section className="py-12">
-          <Container>
-            <div className="w-full max-w-2xl mx-auto border-2 border-border bg-card p-4 aspect-video relative flex items-center justify-center overflow-hidden">
-              {/* Screen */}
-              <div className="w-3/4 h-3/4 border border-border bg-background flex flex-col items-center justify-center font-mono text-primary text-xs whitespace-pre opacity-80 shadow-[inset_0_0_20px_rgba(0,0,0,0.8)]">
-                {`
-  ___ 
- |__ \\
-   / /
-  |_| 
-  (_) 
-                `}
-                <div className="mt-4 animate-pulse">PRESS START</div>
-              </div>
-              
-              {/* Power LED */}
-              <div className="absolute top-8 left-8 w-2 h-2 rounded-full bg-primary shadow-[0_0_10px_#A8FF2E]" />
-              
-              {/* Lines */}
-              <div className="absolute bottom-4 right-4 flex gap-2">
-                <div className="w-8 h-2 bg-border -rotate-45" />
-                <div className="w-8 h-2 bg-border -rotate-45" />
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        {/* VALUE PROPS */}
-        <section className="py-24 border-t border-border/50 bg-card/30">
-          <Container className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex flex-col gap-3">
-              <h3 className="text-primary font-mono text-sm border-b border-primary/30 pb-2">01 // AUTO-TRIGGER</h3>
-              <div className="font-bold text-lg">Auto-show on agent activity</div>
-              <p className="text-muted-foreground">Detects when Cursor or Claude is generating and pops up instantly.</p>
-            </div>
-            <div className="flex flex-col gap-3">
-              <h3 className="text-primary font-mono text-sm border-b border-primary/30 pb-2">02 // NO SWITCHING</h3>
-              <div className="font-bold text-lg">Zero context switching</div>
-              <p className="text-muted-foreground">Stop tabbing out to Twitter. Keep your hands on the keyboard and your eyes on the IDE.</p>
-            </div>
-            <div className="flex flex-col gap-3">
-              <h3 className="text-primary font-mono text-sm border-b border-primary/30 pb-2">03 // SEAMLESS</h3>
-              <div className="font-bold text-lg">Emulator resumes mid-frame</div>
-              <p className="text-muted-foreground">Games pause the millisecond the agent finishes and resume right where you left off.</p>
-            </div>
-          </Container>
-        </section>
       </main>
-      
+
       <Footer />
     </div>
   );

@@ -1,21 +1,49 @@
 import { Container } from "./Container";
 import { Link } from "wouter";
 
+const LINKS = [
+  { href: "/features",     label: "Features"     },
+  { href: "/how-it-works", label: "How It Works" },
+  { href: "/install",      label: "Install"      },
+  { href: "/about",        label: "About"        },
+];
+
 export function Footer() {
   return (
-    <footer className="border-t border-border/50 py-12 mt-24">
-      <Container className="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div className="flex flex-col items-center md:items-start gap-2">
-          <span className="font-bold text-lg text-foreground">STANDBOY</span>
-          <p className="text-sm text-muted-foreground">Your IDE sidekick that keeps you focused.</p>
+    <footer className="border-t border-border/50 py-14 mt-10">
+      <Container>
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+
+          <div className="flex flex-col gap-2">
+            <span className="font-bold text-sm tracking-widest text-foreground">STANDBOY</span>
+            <p className="text-xs text-muted-foreground leading-relaxed max-w-xs">
+              Your IDE sidekick that keeps you focused. Built for Cursor + Claude.
+            </p>
+          </div>
+
+          <nav className="flex flex-wrap gap-x-8 gap-y-3">
+            {LINKS.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors duration-200"
+                data-testid={`footer-${label.toLowerCase().replace(/\s+/g, "-")}`}
+              >
+                {label}
+              </Link>
+            ))}
+          </nav>
+
         </div>
-        
-        <nav className="flex items-center gap-6">
-          <Link href="/features" className="text-sm text-muted-foreground hover:text-primary transition-colors" data-testid="footer-features">Features</Link>
-          <Link href="/how-it-works" className="text-sm text-muted-foreground hover:text-primary transition-colors" data-testid="footer-how-it-works">How It Works</Link>
-          <Link href="/install" className="text-sm text-muted-foreground hover:text-primary transition-colors" data-testid="footer-install">Install</Link>
-          <Link href="/about" className="text-sm text-muted-foreground hover:text-primary transition-colors" data-testid="footer-about">About</Link>
-        </nav>
+
+        <div className="mt-10 pt-6 border-t border-border/30 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-muted-foreground font-mono">
+            © {new Date().getFullYear()} Standboy. All rights reserved.
+          </p>
+          <p className="text-xs text-muted-foreground font-mono">
+            v1.0.0
+          </p>
+        </div>
       </Container>
     </footer>
   );
