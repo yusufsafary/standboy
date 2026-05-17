@@ -1,0 +1,112 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Standboy
+        run: PORT=3000 BASE_PATH="/" pnpm --filter @workspace/standboy run build
+
+      - name: Upload files to Vercel & deploy
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          node << 'EOF'
+          const { readFileSync, readdirSync, statSync } = await import('fs');
+          const { join, relative } = await import('path');
+          const { createHash } = await import('crypto');
+
+          const TOKEN   = process.env.VERCEL_TOKEN;
+          const PROJECT = 'prj_pcII3ybA0jsAbnaKXLJIrNxOiXQp';
+          const DIST    = 'artifacts/standboy/dist/public';
+
+          function walk(dir) {
+            return readdirSync(dir).flatMap(f => {
+              const p = join(dir, f);
+              return statSync(p).isDirectory() ? walk(p) : [p];
+            });
+          }
+
+          const files = walk(DIST);
+          const uploads = [];
+
+          for (const abs of files) {
+            const buf  = readFileSync(abs);
+            const sha1 = createHash('sha1').update(buf).digest('hex');
+            const r    = await fetch('https://api.vercel.com/v2/files', {
+              method: 'POST',
+              headers: {
+                Authorization: `Bearer ${TOKEN}`,
+                'Content-Type': 'application/octet-stream',
+                'x-vercel-digest': sha1,
+                'Content-Length': String(buf.length),
+              },
+              body: buf,
+            });
+            const dest = relative(DIST, abs);
+            uploads.push({ file: dest, sha: sha1, size: buf.length });
+            console.log((r.status < 300 ? '✓' : '✗'), dest);
+          }
+
+          const dep = await fetch(
+            `https://api.vercel.com/v13/deployments?projectId=${PROJECT}`,
+            {
+              method: 'POST',
+              headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                name: 'standboy',
+                target: 'production',
+                files: uploads,
+                projectSettings: { outputDirectory: '.', framework: null },
+                routes: [{ handle: 'filesystem' }, { src: '/(.*)', dest: '/index.html' }],
+              }),
+            }
+          ).then(r => r.json());
+
+          if (dep.url) {
+            console.log('🚀 Deployed:', dep.url);
+            // Poll for READY
+            for (let i = 0; i < 30; i++) {
+              await new Promise(r => setTimeout(r, 5000));
+              const poll = await fetch(`https://api.vercel.com/v13/deployments/${dep.id}`, {
+                headers: { Authorization: `Bearer ${TOKEN}` }
+              }).then(r => r.json());
+              console.log('State:', poll.readyState);
+              if (poll.readyState === 'READY') {
+                console.log('✅ Live at: https://' + poll.url);
+                break;
+              }
+              if (poll.readyState === 'ERROR') { console.error('❌ Deploy failed'); process.exit(1); }
+            }
+          } else {
+            console.error('Deploy error:', JSON.stringify(dep));
+            process.exit(1);
+          }
+          EOF
+        shell: bash
