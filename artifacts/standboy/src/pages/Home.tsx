@@ -13,44 +13,71 @@ export default function Home() {
 
       <main className="flex-1">
 
-        {/* ── HERO ── */}
-        <section className="pt-28 pb-20 md:pt-36 md:pb-28">
-          <Container className="flex flex-col items-center text-center gap-8 max-w-3xl">
-            <div className="inline-flex items-center gap-2 border border-primary/40 bg-primary/5 px-4 py-1.5 text-primary text-xs font-mono uppercase tracking-widest animate-fade-in">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              Status: Ready
+        {/* ── HERO — 2-column: copy left, emulator right ── */}
+        <section className="pt-20 pb-16 md:pt-28 md:pb-24 overflow-hidden">
+          <Container className="max-w-6xl">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+
+              {/* Left — copy */}
+              <div className="flex flex-col gap-7 animate-fade-in-up">
+                <div className="inline-flex items-center gap-2 border border-primary/40 bg-primary/5 px-4 py-1.5 text-primary text-xs font-mono uppercase tracking-widest w-fit">
+                  <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                  Status: Ready
+                </div>
+
+                <h1 className="leading-tight">
+                  Your IDE sidekick that keeps you focused
+                </h1>
+
+                <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
+                  Standboy detects when your AI agent is generating code and
+                  instantly opens a Game Boy emulator in your sidebar — then
+                  vanishes the moment generation stops. Stay in the zone,
+                  always.
+                </p>
+
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Link href="/install" data-testid="hero-install">
+                    <Button
+                      size="lg"
+                      className="h-13 px-8 text-base rounded-none border border-primary bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all duration-200 group"
+                    >
+                      <Play className="w-4 h-4 mr-2 fill-current group-hover:scale-110 transition-transform" />
+                      Install Standboy
+                    </Button>
+                  </Link>
+                  <Link href="/how-it-works">
+                    <Button
+                      size="lg"
+                      variant="outline"
+                      className="h-13 px-8 text-base rounded-none border-border text-muted-foreground hover:text-primary hover:border-primary transition-all duration-200"
+                    >
+                      How it works
+                    </Button>
+                  </Link>
+                </div>
+
+                <p className="text-xs font-mono text-muted-foreground/60 tracking-wide">
+                  Try the demo → click START or press Enter
+                </p>
+              </div>
+
+              {/* Right — live emulator */}
+              <div
+                className="flex justify-center lg:justify-end animate-fade-in-up"
+                style={{ animationDelay: "100ms" }}
+              >
+                {/* Glow halo behind the shell */}
+                <div className="relative">
+                  <div
+                    className="absolute inset-0 rounded-full blur-3xl opacity-20 pointer-events-none"
+                    style={{ background: "#A8FF2E", transform: "scale(0.7)" }}
+                  />
+                  <GameboyEmulator />
+                </div>
+              </div>
+
             </div>
-
-            <h1 className="animate-fade-in-up" style={{ animationDelay: "60ms" }}>
-              Your IDE sidekick that keeps you focused
-            </h1>
-
-            <p className="text-muted-foreground text-lg leading-relaxed max-w-xl animate-fade-in-up" style={{ animationDelay: "120ms" }}>
-              Standboy detects when your AI agent is generating code and instantly
-              opens a Game Boy emulator in your sidebar — then vanishes the moment
-              generation stops. Stay in the zone, always.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: "180ms" }}>
-              <Link href="/install" data-testid="hero-install">
-                <Button size="lg" className="h-13 px-8 text-base rounded-none border border-primary bg-primary text-primary-foreground hover:bg-primary/90 font-bold transition-all duration-200 group">
-                  <Play className="w-4 h-4 mr-2 fill-current group-hover:scale-110 transition-transform" />
-                  Install Standboy
-                </Button>
-              </Link>
-              <Link href="/how-it-works">
-                <Button size="lg" variant="outline" className="h-13 px-8 text-base rounded-none border-border text-muted-foreground hover:text-primary hover:border-primary transition-all duration-200">
-                  How it works
-                </Button>
-              </Link>
-            </div>
-          </Container>
-        </section>
-
-        {/* ── EMULATOR ── */}
-        <section className="py-16 border-t border-border/40">
-          <Container className="max-w-sm">
-            <GameboyEmulator />
           </Container>
         </section>
 
