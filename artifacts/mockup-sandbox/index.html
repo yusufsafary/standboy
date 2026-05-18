@@ -8,15 +8,29 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
 
-    <meta property="og:title" content="Mockup Canvas" />
-    <meta property="og:description" content="UI prototyping sandbox with infinite canvas" />
+    <meta property="og:title" content="Standboy — Your IDE sidekick that keeps you focused" />
+    <meta property="og:description" content="Standboy detects when your AI agent starts generating and opens a game right inside the IDE. When the agent finishes, the game pauses and you review the code." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Mockup Canvas" />
-    <meta name="twitter:description" content="UI prototyping sandbox with infinite canvas" />
+    <meta name="twitter:site" content="@standboyltd" />
+    <meta name="twitter:title" content="Standboy — Your IDE sidekick that keeps you focused" />
+    <meta name="twitter:description" content="Stop tabbing out to Twitter. Standboy keeps you in the IDE while the agent works." />
 
-    <title>Mockup Canvas</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
+    <title>Standboy — Your IDE sidekick that keeps you focused</title>
+    <meta name="description" content="Standboy detects when your AI agent is generating code and opens a game emulator right inside the IDE. Vanishes when generation stops." />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Standboy" />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 45 35'><g fill='%23ADFF2F'><rect x='10' y='0' width='5' height='5'/><rect x='15' y='0' width='5' height='5'/><rect x='25' y='0' width='5' height='5'/><rect x='30' y='0' width='5' height='5'/><rect x='5' y='5' width='35' height='5'/><rect x='0' y='10' width='10' height='5'/><rect x='15' y='10' width='5' height='5'/><rect x='20' y='10' width='5' height='5'/><rect x='25' y='10' width='5' height='5'/><rect x='35' y='10' width='10' height='5'/><rect x='0' y='15' width='45' height='5'/><rect x='0' y='20' width='45' height='5'/><rect x='5' y='25' width='35' height='5'/><rect x='0' y='30' width='10' height='5'/><rect x='35' y='30' width='10' height='5'/></g></svg>" type="image/svg+xml">
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => null);
+        });
+      }
+    </script>
     <!-- Non-blocking font bundle: renders with fallback fonts immediately, swaps in when loaded -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

@@ -1,170 +1,125 @@
 import { useEffect, useState, type ComponentType } from "react";
-
 import { modules as discoveredModules } from "./.generated/mockup-components";
+import { Header } from "./components/landing/Header";
+import { Footer } from "./components/landing/Footer";
+import { Home } from "./pages/Home";
+import { Features } from "./pages/Features";
+import { HowItWorks } from "./pages/HowItWorks";
+import { HowTo } from "./pages/HowTo";
+import { About } from "./pages/About";
+import { Install } from "./pages/Install";
+import { Legal } from "./pages/Legal";
+import { Cookies } from "./pages/Cookies";
 
 type ModuleMap = Record<string, () => Promise<Record<string, unknown>>>;
 
-function _resolveComponent(
-  mod: Record<string, unknown>,
-  name: string,
-): ComponentType | undefined {
-  const fns = Object.values(mod).filter(
-    (v) => typeof v === "function",
-  ) as ComponentType[];
-  return (
-    (mod.default as ComponentType) ||
-    (mod.Preview as ComponentType) ||
-    (mod[name] as ComponentType) ||
-    fns[fns.length - 1]
-  );
+function _resolveComponent(mod: Record<string, unknown>, name: string): ComponentType | undefined {
+  const fns = Object.values(mod).filter((v) => typeof v === "function") as ComponentType[];
+  return (mod.default as ComponentType) || (mod.Preview as ComponentType) || (mod[name] as ComponentType) || fns[fns.length - 1];
 }
 
-function PreviewRenderer({
-  componentPath,
-  modules,
-}: {
-  componentPath: string;
-  modules: ModuleMap;
-}) {
+function PreviewRenderer({ componentPath, modules }: { componentPath: string; modules: ModuleMap }) {
   const [Component, setComponent] = useState<ComponentType | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
-
     setComponent(null);
     setError(null);
-
     async function loadComponent(): Promise<void> {
       const key = `./components/mockups/${componentPath}.tsx`;
       const loader = modules[key];
-      if (!loader) {
-        setError(`No component found at ${componentPath}.tsx`);
-        return;
-      }
-
+      if (!loader) { setError(`No component found at ${componentPath}.tsx`); return; }
       try {
         const mod = await loader();
-        if (cancelled) {
-          return;
-        }
+        if (cancelled) return;
         const name = componentPath.split("/").pop()!;
         const comp = _resolveComponent(mod, name);
-        if (!comp) {
-          setError(
-            `No exported React component found in ${componentPath}.tsx\n\nMake sure the file has at least one exported function component.`,
-          );
-          return;
-        }
+        if (!comp) { setError(`No exported React component found in ${componentPath}.tsx`); return; }
         setComponent(() => comp);
       } catch (e) {
-        if (cancelled) {
-          return;
-        }
-
-        const message = e instanceof Error ? e.message : String(e);
-        setError(`Failed to load preview.\n${message}`);
+        if (cancelled) return;
+        setError(`Failed to load preview.\n${e instanceof Error ? e.message : String(e)}`);
       }
     }
-
     void loadComponent();
-
-    return () => {
-      cancelled = true;
-    };
+    return () => { cancelled = true; };
   }, [componentPath, modules]);
 
-  if (error) {
-    return (
-      <pre style={{ color: "red", padding: "2rem", fontFamily: "system-ui" }}>
-        {error}
-      </pre>
-    );
-  }
-
+  if (error) return <pre style={{ color: "red", padding: "2rem", fontFamily: "system-ui" }}>{error}</pre>;
   if (!Component) return null;
-
   return <Component />;
 }
 
 function getBasePath(): string {
-  return import.meta.env.BASE_URL.replace(/\/$/, "");
+  return (import.meta.env.BASE_URL as string).replace(/\/$/, "");
 }
 
-function getPreviewExamplePath(): string {
-  const basePath = getBasePath();
-  return `${basePath}/preview/ComponentName`;
-}
-
-function XFollowSection() {
-  return (
-    <div className="mb-6 flex flex-col items-center gap-2">
-      <p className="text-xs text-gray-400 uppercase tracking-widest">
-        Ikuti untuk update terbaru
-      </p>
-      <a
-        href="https://x.com/standboyltd"
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 rounded-full bg-gray-900 text-white px-4 py-2 text-sm font-medium hover:bg-gray-700 transition-colors"
-      >
-        <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current" aria-hidden="true">
-          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.73-8.835L1.254 2.25H8.08l4.26 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
-        </svg>
-        Follow @standboyltd
-      </a>
-    </div>
-  );
-}
-
-function Gallery() {
-  return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-8">
-      <div className="text-center max-w-md">
-        <h1 className="text-2xl font-semibold text-gray-900 mb-3">
-          Component Preview Server
-        </h1>
-        <p className="text-gray-500 mb-6">
-          This server renders individual components for the workspace canvas.
-        </p>
-
-        <XFollowSection />
-
-        <p className="text-sm text-gray-400">
-          Access component previews at{" "}
-          <code className="bg-gray-100 px-1.5 py-0.5 rounded text-gray-600">
-            {getPreviewExamplePath()}
-          </code>
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function getPreviewPath(): string | null {
+function getLocalPath(): string {
   const basePath = getBasePath();
   const { pathname } = window.location;
-  const local =
-    basePath && pathname.startsWith(basePath)
-      ? pathname.slice(basePath.length) || "/"
-      : pathname;
-  const match = local.match(/^\/preview\/(.+)$/);
-  return match ? match[1] : null;
+  return basePath && pathname.startsWith(basePath) ? pathname.slice(basePath.length) || "/" : pathname;
+}
+
+function useRouter() {
+  const [path, setPath] = useState(() => getLocalPath());
+  useEffect(() => {
+    const handler = () => setPath(getLocalPath());
+    window.addEventListener("popstate", handler);
+    return () => window.removeEventListener("popstate", handler);
+  }, []);
+  return path;
+}
+
+function NotFound() {
+  return (
+    <div className="flex-1 flex flex-col items-center justify-center py-40 gap-4">
+      <span className="text-[10px] uppercase tracking-widest text-muted-foreground">404</span>
+      <h1 className="text-xl font-bold uppercase tracking-tight text-foreground">Page not found</h1>
+      <button
+        onClick={() => { window.history.pushState({}, "", getBasePath() + "/"); window.dispatchEvent(new PopStateEvent("popstate")); }}
+        className="text-xs uppercase tracking-widest text-primary hover:opacity-80 transition-opacity mt-2"
+      >
+        ← Return Home
+      </button>
+    </div>
+  );
+}
+
+const LANDING_ROUTES: Record<string, ComponentType> = {
+  "/": Home,
+  "/features": Features,
+  "/how-it-works": HowItWorks,
+  "/how-to": HowTo,
+  "/about": About,
+  "/install": Install,
+  "/legal": Legal,
+  "/cookies": Cookies,
+};
+
+function LandingLayout({ path }: { path: string }) {
+  useEffect(() => {
+    document.documentElement.classList.add("dark");
+    return () => document.documentElement.classList.remove("dark");
+  }, []);
+
+  const PageComponent = LANDING_ROUTES[path] ?? NotFound;
+  return (
+    <div className="min-h-dvh flex flex-col bg-background text-foreground">
+      <Header />
+      <PageComponent />
+      <Footer />
+    </div>
+  );
 }
 
 function App() {
-  const previewPath = getPreviewPath();
-
-  if (previewPath) {
-    return (
-      <PreviewRenderer
-        componentPath={previewPath}
-        modules={discoveredModules}
-      />
-    );
+  const path = useRouter();
+  const previewMatch = path.match(/^\/preview\/(.+)$/);
+  if (previewMatch) {
+    return <PreviewRenderer componentPath={previewMatch[1]} modules={discoveredModules} />;
   }
-
-  return <Gallery />;
+  return <LandingLayout path={path} />;
 }
 
 export default App;

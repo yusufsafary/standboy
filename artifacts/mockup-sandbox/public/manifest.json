@@ -1,7 +1,7 @@
 {
   "name": "Standboy",
   "short_name": "Standboy",
-  "description": "UI Component Preview & Design System",
+  "description": "Your IDE sidekick that keeps you focused. Detects AI agent activity and opens a game emulator — vanishes when generation stops.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -11,13 +11,13 @@
   "categories": ["developer", "utilities", "productivity"],
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%230a0a0a'/><text y='140' x='20' font-size='130' font-family='system-ui'>⬡</text></svg>",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%230a0a0a'/%3E%3Cg fill='%23ADFF2F'%3E%3Crect x='42' y='32' width='16' height='16'/%3E%3Crect x='58' y='32' width='16' height='16'/%3E%3Crect x='122' y='32' width='16' height='16'/%3E%3Crect x='138' y='32' width='16' height='16'/%3E%3Crect x='42' y='48' width='108' height='16'/%3E%3Crect x='26' y='64' width='16' height='16'/%3E%3Crect x='42' y='64' width='16' height='16'/%3E%3Crect x='74' y='64' width='16' height='16'/%3E%3Crect x='90' y='64' width='16' height='16'/%3E%3Crect x='106' y='64' width='16' height='16'/%3E%3Crect x='138' y='64' width='16' height='16'/%3E%3Crect x='154' y='64' width='16' height='16'/%3E%3Crect x='26' y='80' width='140' height='16'/%3E%3Crect x='26' y='96' width='140' height='16'/%3E%3Crect x='42' y='112' width='16' height='16'/%3E%3Crect x='58' y='112' width='16' height='16'/%3E%3Crect x='74' y='112' width='16' height='16'/%3E%3Crect x='90' y='112' width='16' height='16'/%3E%3Crect x='106' y='112' width='16' height='16'/%3E%3Crect x='122' y='112' width='16' height='16'/%3E%3Crect x='138' y='112' width='16' height='16'/%3E%3Crect x='26' y='128' width='16' height='16'/%3E%3Crect x='154' y='128' width='16' height='16'/%3E%3C/g%3E%3C/svg%3E",
       "sizes": "192x192",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%230a0a0a'/><text y='380' x='40' font-size='360' font-family='system-ui'>⬡</text></svg>",
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' fill='%230a0a0a'/%3E%3Cg fill='%23ADFF2F'%3E%3Crect x='113' y='85' width='43' height='43'/%3E%3Crect x='156' y='85' width='43' height='43'/%3E%3Crect x='313' y='85' width='43' height='43'/%3E%3Crect x='356' y='85' width='43' height='43'/%3E%3Crect x='113' y='128' width='286' height='43'/%3E%3Crect x='70' y='171' width='43' height='43'/%3E%3Crect x='113' y='171' width='43' height='43'/%3E%3Crect x='199' y='171' width='43' height='43'/%3E%3Crect x='242' y='171' width='43' height='43'/%3E%3Crect x='285' y='171' width='43' height='43'/%3E%3Crect x='356' y='171' width='43' height='43'/%3E%3Crect x='399' y='171' width='43' height='43'/%3E%3Crect x='70' y='214' width='372' height='43'/%3E%3Crect x='70' y='257' width='372' height='43'/%3E%3Crect x='113' y='300' width='286' height='43'/%3E%3Crect x='70' y='343' width='43' height='43'/%3E%3Crect x='399' y='343' width='43' height='43'/%3E%3C/g%3E%3C/svg%3E",
       "sizes": "512x512",
       "type": "image/svg+xml",
       "purpose": "any maskable"
@@ -25,9 +25,14 @@
   ],
   "shortcuts": [
     {
-      "name": "Preview Komponen",
-      "url": "/preview/",
-      "description": "Buka preview komponen langsung"
+      "name": "Install Guide",
+      "url": "/install",
+      "description": "Installation and setup guide"
+    },
+    {
+      "name": "How It Works",
+      "url": "/how-it-works",
+      "description": "See how Standboy works"
     }
   ]
 }
