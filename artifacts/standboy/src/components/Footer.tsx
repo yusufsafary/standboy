@@ -51,17 +51,6 @@ export function Footer() {
           <p className="text-xs text-muted-foreground font-mono">
             © {new Date().getFullYear()} Standboy. All rights reserved.
           </p>
-
-          {/* Orynth badge */}
-          <a href="https://orynth.dev/projects/standboy" target="_blank" rel="noopener">
-            <img
-              src="https://orynth.dev/api/badge/standboy?theme=light&style=default"
-              alt="Featured on Orynth"
-              width="260"
-              height="80"
-            />
-          </a>
-
           <p className="text-xs text-muted-foreground font-mono">
             v1.0.0
           </p>
