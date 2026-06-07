@@ -29,7 +29,7 @@ export function Footer() {
             the moment generation stops.
           </p>
           <a
-            href="https://x.com/standboyltd"
+            href="https://x.com/Standboyapp"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors"
@@ -37,7 +37,7 @@ export function Footer() {
             <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
               <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.73-8.835L1.254 2.25H8.08l4.26 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
             </svg>
-            @standboyltd
+            @Standboyapp
           </a>
         </div>
 
