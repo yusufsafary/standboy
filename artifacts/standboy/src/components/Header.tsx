@@ -11,6 +11,14 @@ const NAV_LINKS = [
   { href: "/about",        label: "About"        },
 ];
 
+function XIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} fill="currentColor">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.73-8.835L1.254 2.25H8.08l4.26 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
+    </svg>
+  );
+}
+
 export function Header() {
   const [open, setOpen] = useState(false);
   const [location] = useLocation();
@@ -46,6 +54,16 @@ export function Header() {
               {label}
             </Link>
           ))}
+          <a
+            href="https://x.com/Standboyapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted-foreground hover:text-primary transition-colors duration-200"
+            aria-label="Follow on X"
+            data-testid="link-x"
+          >
+            <XIcon className="w-4 h-4" />
+          </a>
           <Link href="/install" data-testid="link-install">
             <Button className="rounded-none border border-primary bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-sm px-5 transition-all duration-200">
               Install
@@ -88,6 +106,17 @@ export function Header() {
               {label}
             </Link>
           ))}
+          <a
+            href="https://x.com/Standboyapp"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 py-4 px-1 font-mono text-base border-b border-border/40 text-muted-foreground hover:text-primary transition-colors duration-200"
+            data-testid="mobile-link-x"
+            onClick={() => setOpen(false)}
+          >
+            <XIcon className="w-4 h-4" />
+            @Standboyapp
+          </a>
           <div className="pt-5 pb-2">
             <Link href="/install" onClick={() => setOpen(false)}>
               <Button
