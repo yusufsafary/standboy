@@ -55,7 +55,7 @@ export function Header() {
             </Link>
           ))}
           <a
-            href="https://x.com/Standboyapp"
+            href="https://x.com/Akarifujimoto_"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors duration-200"
@@ -107,7 +107,7 @@ export function Header() {
             </Link>
           ))}
           <a
-            href="https://x.com/Standboyapp"
+            href="https://x.com/Akarifujimoto_"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 py-4 px-1 font-mono text-base border-b border-border/40 text-muted-foreground hover:text-primary transition-colors duration-200"
@@ -115,7 +115,7 @@ export function Header() {
             onClick={() => setOpen(false)}
           >
             <XIcon className="w-4 h-4" />
-            @Standboyapp
+            @Akarifujimoto_
           </a>
           <div className="pt-5 pb-2">
             <Link href="/install" onClick={() => setOpen(false)}>
