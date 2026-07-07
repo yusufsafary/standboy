@@ -20,7 +20,7 @@ export function Footer() {
               Your IDE sidekick that keeps you focused. Built for Cursor + Claude.
             </p>
             <a
-              href="https://x.com/Akarifujimoto_"
+              href="https://x.com/appstandboy"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors duration-200 w-fit"
@@ -28,7 +28,19 @@ export function Footer() {
               <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current flex-shrink-0">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.73-8.835L1.254 2.25H8.08l4.26 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" />
               </svg>
-              @Akarifujimoto_
+              @appstandboy
+            </a>
+            <a
+              href="https://kickstart.easya.io/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-xs font-bold text-primary hover:text-primary/80 transition-colors duration-200 w-fit"
+            >
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-60" />
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
+              </span>
+              $STD Token — Coming Soon
             </a>
           </div>
 

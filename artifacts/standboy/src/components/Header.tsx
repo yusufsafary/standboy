@@ -31,7 +31,7 @@ export function Header() {
   }, [open]);
 
   return (
-    <header className="border-b border-border/50 sticky top-0 bg-background/95 backdrop-blur-md z-50">
+    <header className="border-b border-border/50 sticky top-10 bg-background/95 backdrop-blur-md z-50">
       <Container className="flex items-center justify-between h-[72px]">
 
         {/* Logo */}
@@ -55,7 +55,7 @@ export function Header() {
             </Link>
           ))}
           <a
-            href="https://x.com/Akarifujimoto_"
+            href="https://x.com/appstandboy"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-primary transition-colors duration-200"
@@ -107,7 +107,7 @@ export function Header() {
             </Link>
           ))}
           <a
-            href="https://x.com/Akarifujimoto_"
+            href="https://x.com/appstandboy"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-3 py-4 px-1 font-mono text-base border-b border-border/40 text-muted-foreground hover:text-primary transition-colors duration-200"
@@ -115,7 +115,7 @@ export function Header() {
             onClick={() => setOpen(false)}
           >
             <XIcon className="w-4 h-4" />
-            @Akarifujimoto_
+            @appstandboy
           </a>
           <div className="pt-5 pb-2">
             <Link href="/install" onClick={() => setOpen(false)}>

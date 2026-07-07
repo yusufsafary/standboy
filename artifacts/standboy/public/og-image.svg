@@ -1,0 +1,73 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#0A0A0A"/>
+
+  <!-- Subtle grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1a1a1a" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+
+  <!-- Orange glow blob -->
+  <ellipse cx="200" cy="315" rx="280" ry="200" fill="#FF3C00" fill-opacity="0.08"/>
+  <ellipse cx="1000" cy="315" rx="180" ry="150" fill="#FF3C00" fill-opacity="0.05"/>
+
+  <!-- Left accent bar -->
+  <rect x="80" y="200" width="4" height="230" rx="2" fill="#FF3C00"/>
+
+  <!-- Logo mark (pixel S) — scaled up -->
+  <g transform="translate(100, 215) scale(0.55)">
+    <rect width="90" height="90" rx="18" fill="#FF3C00"/>
+    <!-- S lettermark -->
+    <rect x="14" y="14" width="62" height="12" rx="2" fill="white"/>
+    <rect x="14" y="39" width="62" height="12" rx="2" fill="white"/>
+    <rect x="14" y="64" width="62" height="12" rx="2" fill="white"/>
+    <rect x="14" y="14" width="12" height="37" rx="2" fill="white"/>
+    <rect x="64" y="39" width="12" height="37" rx="2" fill="white"/>
+  </g>
+
+  <!-- STANDBOY wordmark -->
+  <text x="172" y="276" font-family="'Space Mono', 'Courier New', monospace" font-size="48" font-weight="700" fill="white" letter-spacing="10">STANDBOY</text>
+
+  <!-- Tagline -->
+  <text x="172" y="320" font-family="'Space Mono', 'Courier New', monospace" font-size="20" fill="#888888" letter-spacing="2">Your IDE sidekick that keeps you focused</text>
+
+  <!-- Divider -->
+  <line x1="100" y1="370" x2="1100" y2="370" stroke="#222222" stroke-width="1"/>
+
+  <!-- Bottom row: X account + Token launch -->
+  <g transform="translate(100, 410)">
+    <!-- X icon -->
+    <svg x="0" y="0" width="24" height="24" viewBox="0 0 24 24" fill="#888888">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.736l7.73-8.835L1.254 2.25H8.08l4.26 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z"/>
+    </svg>
+    <text x="34" y="18" font-family="'Space Mono', 'Courier New', monospace" font-size="18" fill="#888888" letter-spacing="1">@appstandboy</text>
+  </g>
+
+  <!-- Vertical divider -->
+  <line x1="340" y1="405" x2="340" y2="445" stroke="#333333" stroke-width="1"/>
+
+  <!-- Token announcement -->
+  <circle cx="365" cy="425" r="6" fill="#FF3C00"/>
+  <text x="383" y="431" font-family="'Space Mono', 'Courier New', monospace" font-size="18" font-weight="700" fill="white" letter-spacing="1">$STD TOKEN</text>
+  <text x="553" y="431" font-family="'Space Mono', 'Courier New', monospace" font-size="18" fill="#888888" letter-spacing="1">— COMING SOON</text>
+  <text x="383" y="460" font-family="'Space Mono', 'Courier New', monospace" font-size="13" fill="#555555" letter-spacing="0.5">kickstart.easya.io</text>
+
+  <!-- Right side — decorative pixel blocks -->
+  <g opacity="0.3">
+    <rect x="980" y="390" width="12" height="12" fill="#FF3C00"/>
+    <rect x="996" y="390" width="12" height="12" fill="#FF3C00" opacity="0.6"/>
+    <rect x="1012" y="390" width="12" height="12" fill="#FF3C00" opacity="0.3"/>
+    <rect x="980" y="406" width="12" height="12" fill="#FF3C00" opacity="0.6"/>
+    <rect x="996" y="406" width="12" height="12" fill="#FF3C00"/>
+    <rect x="1012" y="406" width="12" height="12" fill="#FF3C00" opacity="0.6"/>
+    <rect x="980" y="422" width="12" height="12" fill="#FF3C00" opacity="0.3"/>
+    <rect x="996" y="422" width="12" height="12" fill="#FF3C00" opacity="0.6"/>
+    <rect x="1012" y="422" width="12" height="12" fill="#FF3C00"/>
+  </g>
+
+  <!-- Website URL -->
+  <text x="1100" y="460" font-family="'Space Mono', 'Courier New', monospace" font-size="13" fill="#444444" text-anchor="end" letter-spacing="0.5">standboy.ltd</text>
+</svg>
