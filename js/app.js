@@ -38,6 +38,31 @@ async function rpcCall(to, data) {
 function encAddr(a) { return "0x" + a.replace(/^0x/, "").toLowerCase().padStart(64, "0"); }
 function encUint(n) { return "0x" + BigInt(n).toString(16).padStart(64, "0"); }
 
+// Count-up tween untuk angka papan.
+function tween(el, to, suffix) {
+  if (!el) return;
+  const from = parseInt((el.dataset.v || "0"), 10);
+  el.dataset.v = String(to);
+  if (from === to) { el.textContent = fmt(to) + (suffix || ""); return; }
+  const t0 = performance.now(), dur = 700;
+  function step(t) {
+    const k = Math.min(1, (t - t0) / dur);
+    el.textContent = fmt(Math.round(from + (to - from) * (1 - Math.pow(1 - k, 3)))) + (suffix || "");
+    if (k < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+// Stadium wave melintasi tribun.
+function doWave() {
+  const el = document.getElementById("stands");
+  if (!el || document.hidden) return;
+  el.classList.remove("waving");
+  void el.offsetWidth;
+  el.classList.add("waving");
+  setTimeout(() => el.classList.remove("waving"), 2400);
+}
+setInterval(doWave, 9000);
+
 // Stands visual: 8 terrace rows x 60 seats; filled share follows minted count.
 function drawStands(minted) {
   const el = document.getElementById("stands");
@@ -53,6 +78,7 @@ function drawStands(minted) {
     for (let c = 0; c < cols; c++) {
       const s = document.createElement("span");
       s.className = "seat" + (idx < filled ? " " + standCls : " dim");
+      s.style.setProperty("--c", c);
       row.appendChild(s);
       idx++;
     }
@@ -71,13 +97,19 @@ async function refresh() {
       rpcCall(CONFIG.claim, SEL.claimsRemaining),
     ]);
     const m = Number(minted), cl = Number(claimed);
-    document.getElementById("b-minted").textContent = fmt(m);
-    document.getElementById("b-left").textContent = fmt(CONFIG.maxSupply - m);
-    document.getElementById("b-claimed").textContent = fmt(cl);
+    const prevM = window.STANDBOY ? window.STANDBOY.minted : null;
+    tween(document.getElementById("b-minted"), m);
+    tween(document.getElementById("b-left"), CONFIG.maxSupply - m);
+    tween(document.getElementById("b-claimed"), cl);
     document.getElementById("b-next").textContent = m >= CONFIG.maxSupply ? "FULL" : "Nº " + fmt(m + 1);
+    if (prevM !== null && m > prevM) {
+      document.querySelectorAll(".bcell").forEach((c) => c.classList.add("flash"));
+      setTimeout(() => document.querySelectorAll(".bcell").forEach((c) => c.classList.remove("flash")), 900);
+      doWave();
+    }
     document.getElementById("mint-status").textContent = mOpen === 1n ? "Mint is open" : "Opening soon";
-    document.getElementById("c-claimed").textContent = fmt(cl);
-    document.getElementById("c-left").textContent = fmt(Number(cLeft));
+    tween(document.getElementById("c-claimed"), cl);
+    tween(document.getElementById("c-left"), Number(cLeft));
     document.getElementById("c-status").textContent = cOpen === 1n ? "OPEN" : "SOON";
     document.getElementById("strip-text").textContent =
       (mOpen === 1n ? "MINT IS LIVE" : "STANDS FILLING SOON") + " · MINT FREE · ONE SPOT PER AGENT";
@@ -89,6 +121,15 @@ async function refresh() {
 }
 refresh();
 setInterval(refresh, 30000);
+setTimeout(doWave, 1200);
+
+// Scroll reveal untuk section.
+if ("IntersectionObserver" in window) {
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.12 });
+  document.querySelectorAll(".rv").forEach((el) => io.observe(el));
+} else {
+  document.querySelectorAll(".rv").forEach((el) => el.classList.add("in"));
+}
 
 document.querySelectorAll("[data-copy]").forEach((btn) => {
   btn.addEventListener("click", async () => {
