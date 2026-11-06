@@ -115,7 +115,15 @@ footer{padding:26px 0}
 .mascot svg{overflow:visible}
 .m-bob{animation:bob 2.6s ease-in-out infinite alternate}
 @keyframes bob{from{transform:translateY(0)}to{transform:translateY(-7px)}}
-.m-arm{transform-origin:114px 56px;animation:wave 1.8s ease-in-out infinite}
+.m-arm{transform-origin:134px 76px;animation:wave 1.8s ease-in-out infinite}
+.herocards{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin:26px auto 4px;max-width:640px}
+.hcard{flex:1;min-width:140px;max-width:196px;margin:0}
+.hcard img{width:100%;aspect-ratio:1;display:block;border-radius:16px;border:1px solid var(--line);background:#04100a;box-shadow:0 14px 28px rgba(0,0,0,.35)}
+.hcard.t1{transform:rotate(-3deg)} .hcard.t2{transform:rotate(1.5deg)} .hcard.t3{transform:rotate(3deg)}
+.hcard{transition:transform .25s ease}
+.hcard:hover{transform:rotate(0) translateY(-5px)}
+.hcard figcaption{margin-top:9px;font-family:'PlexMono',monospace;font-size:10.5px;letter-spacing:.14em;color:var(--muted);text-align:center}
+@media (max-width:640px){.hcard{min-width:100px}.hcard figcaption{font-size:9px}}
 @keyframes wave{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-26deg)}}
 .m-eye{animation:blink2 4.4s infinite}
 @keyframes blink2{0%,92%,100%{opacity:1}95%{opacity:.1}}
