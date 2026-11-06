@@ -1,9 +1,9 @@
 // STANDBOY live board: read-only chain reads (RPC race), stands visual,
 // copy buttons, wallet check. No wallet connection, no transactions.
 const CONFIG = {
-  nft: "0x429214cFe346f5Dc0EF13554014259d8d6248e80",
-  token: "0x57bdDdE3D4D664C454eDAa6312dd9d26A0601c92",
-  claim: "0xC97FE77E0da94Efd5Ec967ba48137cd21A62DCFE",
+  nft: "0x6043a590F315B9fF44aD3b3298198f89b6b4b548",
+  token: "0xC2515e15586183d4E8e1D3Ec9AA4d1Bb53107eDb",
+  claim: "0x2caf4b66C2AF9bd18CcA0EAc139dA71B808fcFA2",
   maxSupply: 5000,
   perClaim: 250000,
 };
