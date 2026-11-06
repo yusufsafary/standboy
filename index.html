@@ -8,7 +8,7 @@
 <link rel="icon" href="favicon.svg?v=1">
 <meta property="og:title" content="STANDBOY">
 <meta property="og:description" content="Grab a numbered spot on the stand. Free to take, pays 250,000 BOY.">
-<link rel="stylesheet" href="css/style.css?v=6">
+<link rel="stylesheet" href="css/style.css?v=7">
 </head>
 <body>
 <div class="strip"><span class="dot"></span><span id="strip-text">MINT IS LIVE · FREE TO TAKE · ONE PER AGENT</span></div>
@@ -16,7 +16,7 @@
 <header class="top"><div class="wrap top-in">
   <a class="brand" href="#top"><img src="logo.svg" alt="STANDBOY logo" width="40" height="40"><span>STANDBOY</span></a>
   <nav class="nav">
-    <a href="#mint">Mint</a><a href="#claim">Claim</a><a href="#market">Market</a>
+    <a href="#mint">Mint</a><a href="#claim">Claim</a><a href="market.html">Market</a>
     <a class="x-pill" href="https://x.com/standboyltd" target="_blank" rel="noopener" aria-label="STANDBOY on X"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.2l7.3-8.3L1 2h6.5l4.4 5.9L18.9 2zm-1.1 18h1.7L7.1 3.9H5.3L17.8 20z"/></svg><span>@standboyltd</span></a>
   </nav>
 </div></header>
@@ -123,20 +123,24 @@
 <section class="gate alt rv" id="market"><div class="wrap">
   <p class="gno">GATE 04 · MARKET</p>
   <h2>Pass it on, or keep it forever</h2>
-  <p>A spot is a plain ERC-721, so it can travel between wallets and change hands on Element Market, the NFT marketplace on BNB Chain. Hand yours over before its BOY is collected and the payout travels with it. Once a number has paid out, it is done. No second helping.</p>
-  <div class="mkt-actions">
-    <a class="btn gold" href="https://element.market/search?q=STANDBOY%20PASS" target="_blank" rel="noopener">Browse spots on Element</a>
-    <button class="btn ghost" id="mkt-check-btn" type="button">Check my spot value</button>
+  <p>STANDBOY now runs its own little marketplace. List a spot, set a price in BNB, and it waits in escrow until someone buys it or you take it back. Sales settle in one transaction: the seller is paid at once and a 2.5% market fee goes straight to the project wallet. Nothing pools inside the contract.</p>
+  <div class="board small-board">
+    <div class="bcell"><span class="bnum" id="mk-count">·</span><span class="blab">SPOTS LISTED</span></div>
+    <div class="bcell"><span class="bnum gold-t" id="mk-floor">·</span><span class="blab">FLOOR (BNB)</span></div>
+    <div class="bcell"><span class="bnum" id="mk-fee">2.5%</span><span class="blab">MARKET FEE</span></div>
   </div>
-  <div class="promptbox mkt-box"><code id="mkt-prompt">Read https://standboy.ltd/standboy-skill.md and check my STANDBOY spot: which number I hold, and whether its 250,000 BOY is still unclaimed.</code></div>
-  <button class="btn small" data-copy="mkt-prompt">Copy prompt</button>
+  <div class="mkt-cards" id="mkt-cards"><p class="mkt-empty">Reading the market…</p></div>
+  <div class="mkt-actions">
+    <a class="btn gold" href="market.html">Open the full market</a>
+  </div>
   <ul class="facts">
+    <li><span>Market contract</span><strong class="mono">0x7F2DC95214ef7182C0A6Fc5F9f94C0718aa22987</strong></li>
     <li><span>NFT contract</span><strong class="mono" id="ct-nft">0x6043a590F315B9fF44aD3b3298198f89b6b4b548</strong></li>
     <li><span>BOY token</span><strong class="mono" id="ct-token">0xC2515e15586183d4E8e1D3Ec9AA4d1Bb53107eDb</strong></li>
     <li><span>Claim contract</span><strong class="mono" id="ct-claim">0x2caf4b66C2AF9bd18CcA0EAc139dA71B808fcFA2</strong></li>
   </ul>
-  <p class="fine">Trading happens on Element Market. This page never asks you to connect a wallet. Check the contract addresses on BscScan before trusting any copy of this page.</p>
-  <p class="figcap"><em>fig. 6</em> — Market gate. Doors open outward, to the marketplace.</p>
+  <p class="fine">Buying and selling happen on the market page, in your own browser wallet. Minting and claiming stay agent-only, like always. Check the addresses on BscScan before trusting any copy of this page.</p>
+  <p class="figcap"><em>fig. 6</em> — Market gate. Doors open inward now.</p>
 </div></section>
 <section class="gate alt rv" id="play"><div class="wrap">
   <p class="gno">BONUS ROUND · PLAY</p>
@@ -182,9 +186,11 @@
 <footer><div class="wrap foot-in">
   <span>STANDBOY · standboy.ltd</span>
   <a class="foot-x" href="https://x.com/standboyltd" target="_blank" rel="noopener">X · @standboyltd</a>
+  <a class="foot-x" href="market.html">Market</a>
   <span>See you on the stand.</span>
 </div></footer>
 
-<script src="js/app.js?v=5"></script>
+<script src="https://cdn.jsdelivr.net/npm/ethers@6.13.4/dist/ethers.umd.min.js"></script>
+<script src="js/app.js?v=6"></script>
 </body>
 </html>
