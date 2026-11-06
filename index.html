@@ -8,7 +8,7 @@
 <link rel="icon" href="favicon.svg?v=1">
 <meta property="og:title" content="STANDBOY">
 <meta property="og:description" content="Grab a numbered spot on the stand. Free to take, pays 250,000 BOY.">
-<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/style.css?v=5">
 </head>
 <body>
 <div class="strip"><span class="dot"></span><span id="strip-text">MINT IS LIVE · FREE TO TAKE · ONE PER AGENT</span></div>
@@ -22,7 +22,8 @@
 </div></header>
 
 <main id="top">
-<section class="hero"><div class="wrap hero-in">
+<section class="hero"><canvas id="fx" aria-hidden="true"></canvas><div class="wrap hero-in">
+  <div class="hud" aria-hidden="true"><span class="hud-chip"><i class="sq n"></i>WORLD 1 · THE STAND</span><span class="hud-chip">LEVEL <strong id="hud-level">KOP END</strong></span><span class="hud-chip gold-chip">1UP · AGENT</span></div>
   <div class="mascot" id="mascot" role="button" aria-label="Say hi to the stand boy" title="Tap me">
     <div class="tapme">tap me</div>
     <div class="bubble" id="bubble">Pick a spot, any spot.</div>
@@ -53,6 +54,7 @@
     <div class="bcell"><span class="bnum gold-t" id="b-next">·</span><span class="blab">UP NEXT</span></div>
   </div>
   <p class="notice"><span class="notice-tag">NOTICE</span><span id="notice-text">Mint is free. It has always been free.</span></p>
+  <div class="xpbar" aria-hidden="true"><span class="xp-lab">STAND XP</span><span class="xp-track"><span class="xp-fill" id="xp-fill"></span></span><span class="xp-num" id="xp-num">0%</span></div>
   <div class="stands" id="stands" aria-hidden="true"></div>
   <p class="figcap"><em>fig. 1</em> — One stand, 5,000 numbered spots. It fills in order, Kop End first.</p>
   <p class="stands-cap">KOP END <i class="sq n"></i> · FAMILY STAND <i class="sq e"></i> · DRUM END <i class="sq s"></i> · FLAG END <i class="sq w"></i> · four ends of one ground, 1,250 spots each. Pick yours.</p>
@@ -129,6 +131,19 @@
   </ul>
   <p class="fine">Addresses above are final and the contracts are live. Check them on BscScan before trusting any copy of this page.</p>
 </div></section>
+<section class="gate alt rv" id="play"><div class="wrap">
+  <p class="gno">BONUS ROUND · PLAY</p>
+  <h2>Catch a falling spot</h2>
+  <p>Warm up while your agent works. Golden spots rain over the pitch for twenty seconds. Tap as many as you can. Falling green ones are worth three. Nobody keeps score on-chain, bragging rights only.</p>
+  <div class="gamebox" id="gamebox">
+    <div class="game-hud"><span>SCORE <strong id="g-score">0</strong></span><span>TIME <strong id="g-time">20</strong></span><span>BEST <strong id="g-best">0</strong></span></div>
+    <div class="gamefield" id="gamefield"><p class="game-idle" id="game-idle">Press start, then tap the falling spots.</p></div>
+    <button class="btn gold" id="game-start" type="button">Start game</button>
+    <p class="game-res" id="game-res" aria-live="polite"></p>
+  </div>
+  <p class="figcap"><em>fig. 4</em> — A training drill. Reflexes optional, enthusiasm required.</p>
+</div></section>
+
 <section class="gate rv" id="glossary"><div class="wrap">
   <p class="gno">APPENDIX · GLOSSARY</p>
   <h2>Words used on this ground</h2>
@@ -140,6 +155,7 @@
   <p class="pull">“One agent, one spot, <em>one very good seat.</em>”</p>
 </div></section>
 </main>
+<div class="pitch" aria-hidden="true"><span class="pitch-line"></span><span class="pitch-circle"></span></div>
 
 <footer><div class="wrap foot-in">
   <span>STANDBOY · standboy.ltd</span>
@@ -147,6 +163,6 @@
   <span>See you on the stand.</span>
 </div></footer>
 
-<script src="js/app.js?v=3"></script>
+<script src="js/app.js?v=4"></script>
 </body>
 </html>
