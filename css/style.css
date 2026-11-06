@@ -79,6 +79,32 @@ footer{padding:26px 0}
   html{scroll-behavior:auto}
   .strip .dot{animation:none}
 }
+.dock{display:none}
+@media (max-width:640px){
+  .dock{position:fixed;left:10px;right:10px;bottom:calc(10px + env(safe-area-inset-bottom));z-index:60;display:flex;gap:8px;padding:8px;background:rgba(7,19,13,.92);border:1px solid var(--line);border-radius:999px;backdrop-filter:blur(8px)}
+  .dock a{flex:1;text-align:center;text-decoration:none;font-family:'PlexMonoSb',monospace;font-size:11.5px;letter-spacing:.02em;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:12px 4px;min-height:46px;display:flex;align-items:center;justify-content:center}
+  .dock a.dock-gold{background:var(--gold);color:#23180A;border-color:var(--gold)}
+  .dock a:active{transform:scale(.97)}
+  body{padding-bottom:78px}
+  .top{position:static}
+  .nav a[href="launch/"],.nav .x-pill span{display:none}
+  .wrap{--pad:14px}
+  .hero-in{padding-top:30px;padding-bottom:34px}
+  h1{font-size:clamp(38px,11.5vw,56px)}
+  .lede{font-size:15.5px;margin-top:16px}
+  .hud{margin-bottom:14px}
+  .hud-chip{font-size:9.5px;padding:5px 9px}
+  .cta-row{margin-top:22px}
+  .cta-row .btn{flex:1;min-height:48px;display:flex;align-items:center;justify-content:center}
+  .bnum{font-size:24px}
+  .gate{padding:38px 0}
+  .gate h2{font-size:clamp(25px,7.4vw,34px)}
+  .facts li{padding:11px 13px;flex-wrap:wrap;gap:4px}
+  .facts strong{min-width:0;text-align:left;overflow-wrap:anywhere}
+  .checkrow input{min-width:0}
+  .checkrow .btn{min-height:46px}
+  .listform .btn,.walletbar .btn{min-height:46px}
+}
 
 /* ==== Upgrade v2: cute, animatif, tetap profesional ==== */
 .x-pill{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#23180A!important;border-radius:999px;padding:6px 14px;font-family:'PlexMonoSb',monospace;text-transform:none!important;letter-spacing:.5px!important}
