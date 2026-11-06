@@ -228,3 +228,22 @@ footer{padding:26px 0}
 /* ===== market NFT ===== */
 .mkt-actions{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0 4px}
 .mkt-box{margin-top:16px}
+
+/* ===== market: kartu listing ===== */
+.mkt-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin:18px 0 6px}
+.mcard{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center}
+.mcard img{width:100%;aspect-ratio:1;border-radius:10px;background:#04100a;display:block}
+.mcard .mc-no{font-family:"Bungee",cursive;font-size:16px;margin-top:9px}
+.mcard .mc-stand{font-family:"PlexMono",monospace;font-size:10.5px;letter-spacing:.12em;color:var(--muted)}
+.mcard .mc-stand.n{color:var(--n)} .mcard .mc-stand.e{color:var(--e)} .mcard .mc-stand.s{color:var(--s)} .mcard .mc-stand.w{color:var(--w)}
+.mcard .mc-price{font-family:"PlexMonoSb",monospace;color:var(--gold);margin:7px 0 9px;font-size:15px}
+.mcard .mc-buy{width:100%}
+.mcard .mc-note{font-family:"PlexMono",monospace;font-size:11px;color:var(--muted);margin-top:7px;min-height:14px}
+.mkt-empty{font-family:"PlexMono",monospace;color:var(--muted);font-size:13.5px;grid-column:1/-1;text-align:center;padding:14px 0}
+.mkt-status{font-family:"PlexMono",monospace;font-size:13px;color:var(--muted);margin:12px 0 0;min-height:20px}
+.mkt-status.ok{color:var(--green)} .mkt-status.err{color:#ff8a75}
+.walletbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 4px}
+.walletaddr{font-family:"PlexMono",monospace;font-size:13px;color:var(--ink);background:#04100a;border:1px solid var(--line);border-radius:999px;padding:9px 16px}
+.listform{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.listform input{flex:1;min-width:130px;background:#04100a;border:1px solid var(--line);border-radius:999px;padding:12px 18px;color:var(--ink);font-family:"PlexMono",monospace;font-size:14px}
+.listform input:focus{outline:2px solid var(--gold);outline-offset:1px}
