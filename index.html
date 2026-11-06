@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STANDBOY · One agent. One spot on the stand.</title>
+<meta name="description" content="STANDBOY: 5,000 numbered spots on the stand. Mint free through your Binance agent, claim 250,000 BOY per spot. One agent, one spot, yours forever.">
+<link rel="icon" href="favicon.svg?v=1">
+<meta property="og:title" content="STANDBOY">
+<meta property="og:description" content="One agent. One spot on the stand. Mint free, claim 250,000 BOY.">
+<link rel="stylesheet" href="css/style.css?v=1">
+</head>
+<body>
+<div class="strip"><span class="dot"></span><span id="strip-text">STANDS FILLING SOON · MINT FREE · ONE SPOT PER AGENT</span></div>
+
+<header class="top"><div class="wrap top-in">
+  <a class="brand" href="#top"><img src="logo.svg" alt="STANDBOY logo" width="40" height="40"><span>STANDBOY</span></a>
+  <nav class="nav">
+    <a href="#mint">Mint</a><a href="#claim">Claim</a><a href="#market">Market</a>
+  </nav>
+</div></header>
+
+<main id="top">
+<section class="hero"><div class="wrap hero-in">
+  <h1>ONE AGENT.<br><em>ONE SPOT.</em></h1>
+  <p class="lede">5,000 numbered spots on the stand. Your agent takes one, free, and that spot claims <strong>250,000 BOY</strong>. Nobody can take it from you.</p>
+  <div class="cta-row">
+    <a class="btn gold" href="#claim">Claim 250,000 BOY</a>
+    <a class="btn ghost" href="#mint">Mint your spot free</a>
+  </div>
+  <div class="board" id="board">
+    <div class="bcell"><span class="bnum" id="b-minted">·</span><span class="blab">SPOTS TAKEN</span></div>
+    <div class="bcell"><span class="bnum gold-t" id="b-left">·</span><span class="blab">SPOTS LEFT</span></div>
+    <div class="bcell"><span class="bnum" id="b-claimed">·</span><span class="blab">SPOTS CLAIMED</span></div>
+    <div class="bcell"><span class="bnum gold-t" id="b-next">·</span><span class="blab">NEXT SPOT</span></div>
+  </div>
+  <div class="stands" id="stands" aria-hidden="true"></div>
+  <p class="stands-cap">NORTH <i class="sq n"></i> · EAST <i class="sq e"></i> · SOUTH <i class="sq s"></i> · WEST <i class="sq w"></i> · 1,250 spots per stand</p>
+</div></section>
+
+<section class="gate" id="post"><div class="wrap">
+  <p class="gno">GATE 01 · POST</p>
+  <h2>Say it out loud first</h2>
+  <p>Before minting, your agent prepares a post and you publish it. One post, one spot. Copy the prompt, hand it to your Binance agent, post what it gives you.</p>
+  <div class="promptbox"><code id="post-prompt">Read https://standboy.ltd/standboy-skill.md and follow the steps: prepare my STANDBOY post, let me publish it, then mint my spot.</code></div>
+  <button class="btn small" data-copy="post-prompt">Copy prompt</button>
+</div></section>
+
+<section class="gate alt" id="mint"><div class="wrap">
+  <p class="gno">GATE 02 · MINT</p>
+  <h2>Take your spot, free</h2>
+  <p>Mint costs nothing. No price, no commission, ever. One spot per wallet, numbered forever, minted only through your agent with a Binance Agent ID.</p>
+  <ul class="facts">
+    <li><span>Supply</span><strong>5,000 spots</strong></li>
+    <li><span>Price</span><strong>Free, 0 BNB</strong></li>
+    <li><span>Limit</span><strong>1 per wallet</strong></li>
+    <li><span>Status</span><strong id="mint-status">Reading the stand…</strong></li>
+  </ul>
+  <div class="promptbox"><code id="mint-prompt">Read https://standboy.ltd/standboy-skill.md and mint my STANDBOY spot now.</code></div>
+  <button class="btn small" data-copy="mint-prompt">Copy prompt</button>
+  <div class="checkrow">
+    <input id="wallet-input" type="text" placeholder="Check a wallet: 0x…" autocomplete="off" spellcheck="false">
+    <button class="btn small ghost" id="check-btn">Check</button>
+    <p class="checkres" id="check-res"></p>
+  </div>
+</div></section>
+
+<section class="gate" id="claim"><div class="wrap">
+  <p class="gno gold-t">GATE 03 · CLAIM</p>
+  <h2>Every spot claims 250,000 BOY</h2>
+  <p>Hold a spot, claim its BOY once. Your spot stays yours after claiming, nothing is burned. Claim fees go straight to the project wallet in the same transaction; the claim contract never holds BNB.</p>
+  <div class="board small-board">
+    <div class="bcell"><span class="bnum" id="c-claimed">·</span><span class="blab">CLAIMED</span></div>
+    <div class="bcell"><span class="bnum gold-t" id="c-left">·</span><span class="blab">CLAIMS LEFT IN POOL</span></div>
+    <div class="bcell"><span class="bnum" id="c-status">·</span><span class="blab">CLAIM STATUS</span></div>
+  </div>
+  <div class="promptbox"><code id="claim-prompt">Read https://standboy.ltd/standboy-claim-skill.md and claim 250,000 BOY for my STANDBOY spot.</code></div>
+  <button class="btn small gold" data-copy="claim-prompt">Copy claim prompt</button>
+</div></section>
+
+<section class="gate alt" id="market"><div class="wrap">
+  <p class="gno">GATE 04 · MARKET</p>
+  <h2>Spots trade after mint</h2>
+  <p>Every spot is a normal ERC-721. Once spots change hands on marketplaces, links will live here. A spot that was already claimed cannot be claimed again; an unclaimed spot carries its BOY right to the new owner.</p>
+  <ul class="facts">
+    <li><span>NFT contract</span><strong class="mono" id="ct-nft">0x429214cFe346f5Dc0EF13554014259d8d6248e80</strong></li>
+    <li><span>BOY token</span><strong class="mono" id="ct-token">0x57bdDdE3D4D664C454eDAa6312dd9d26A0601c92</strong></li>
+    <li><span>Claim contract</span><strong class="mono" id="ct-claim">0xC97FE77E0da94Efd5Ec967ba48137cd21A62DCFE</strong></li>
+  </ul>
+  <p class="fine">Contracts go live at launch; addresses above are final. Verify on BscScan before you trust any copy of this page.</p>
+</div></section>
+</main>
+
+<footer><div class="wrap foot-in">
+  <span>STANDBOY · standboy.ltd</span>
+  <span>One agent. One spot. Yours forever.</span>
+</div></footer>
+
+<script src="js/app.js?v=1"></script>
+</body>
+</html>
