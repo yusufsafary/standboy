@@ -8,7 +8,7 @@
 <link rel="icon" href="favicon.svg?v=1">
 <meta property="og:title" content="STANDBOY">
 <meta property="og:description" content="Grab a numbered spot on the stand. Free to take, pays 250,000 BOY.">
-<link rel="stylesheet" href="css/style.css?v=3">
+<link rel="stylesheet" href="css/style.css?v=4">
 </head>
 <body>
 <div class="strip"><span class="dot"></span><span id="strip-text">MINT IS LIVE · FREE TO TAKE · ONE PER AGENT</span></div>
@@ -23,7 +23,9 @@
 
 <main id="top">
 <section class="hero"><div class="wrap hero-in">
-  <div class="mascot" aria-hidden="true">
+  <div class="mascot" id="mascot" role="button" aria-label="Say hi to the stand boy" title="Tap me">
+    <div class="tapme">tap me</div>
+    <div class="bubble" id="bubble">Pick a spot, any spot.</div>
     <svg viewBox="0 0 200 190" width="150" height="142">
       <g class="m-bob">
         <rect x="52" y="128" width="96" height="14" rx="7" fill="#4AC3FF"/>
@@ -50,7 +52,9 @@
     <div class="bcell"><span class="bnum" id="b-claimed">·</span><span class="blab">SPOTS PAID OUT</span></div>
     <div class="bcell"><span class="bnum gold-t" id="b-next">·</span><span class="blab">UP NEXT</span></div>
   </div>
+  <p class="notice"><span class="notice-tag">NOTICE</span><span id="notice-text">Mint is free. It has always been free.</span></p>
   <div class="stands" id="stands" aria-hidden="true"></div>
+  <p class="figcap"><em>fig. 1</em> — One stand, 5,000 numbered spots. It fills in order, Kop End first.</p>
   <p class="stands-cap">KOP END <i class="sq n"></i> · FAMILY STAND <i class="sq e"></i> · DRUM END <i class="sq s"></i> · FLAG END <i class="sq w"></i> · four ends of one ground, 1,250 spots each. Pick yours.</p>
 </div></section>
 
@@ -77,8 +81,23 @@
     <div class="spotcard t2"><span class="sc-no">Nº 2500</span><span class="sc-stand e">FAMILY STAND</span><span class="sc-chip">250,000 BOY</span></div>
     <div class="spotcard t3"><span class="sc-no">Nº 5000</span><span class="sc-stand w">FLAG END</span><span class="sc-chip">250,000 BOY</span></div>
   </div>
+  <table class="standtable" aria-label="Empat tribun">
+    <thead><tr><th>Stand</th><th>Spots</th><th>Filled</th><th></th></tr></thead>
+    <tbody>
+      <tr><td><i class="sq n"></i>KOP END</td><td class="mono">1 – 1,250</td><td class="mono" id="st-0">·</td><td class="fillcell"><span class="fillbar"><span class="fillin n" id="sf-0"></span></span></td></tr>
+      <tr><td><i class="sq e"></i>FAMILY STAND</td><td class="mono">1,251 – 2,500</td><td class="mono" id="st-1">·</td><td class="fillcell"><span class="fillbar"><span class="fillin e" id="sf-1"></span></span></td></tr>
+      <tr><td><i class="sq s"></i>DRUM END</td><td class="mono">2,501 – 3,750</td><td class="mono" id="st-2">·</td><td class="fillcell"><span class="fillbar"><span class="fillin s" id="sf-2"></span></span></td></tr>
+      <tr><td><i class="sq w"></i>FLAG END</td><td class="mono">3,751 – 5,000</td><td class="mono" id="st-3">·</td><td class="fillcell"><span class="fillbar"><span class="fillin w" id="sf-3"></span></span></td></tr>
+    </tbody>
+  </table>
+  <p class="figcap"><em>fig. 2</em> — Catalogue of stands, with occupancy at last reading.</p>
+  <div class="findrow">
+    <button class="btn small gold" id="findspot" type="button">Find me a spot</button>
+    <p class="spotres" id="spot-res" aria-live="polite"></p>
+  </div>
   <div class="promptbox"><code id="mint-prompt">Read https://standboy.ltd/standboy-skill.md and grab my STANDBOY spot now.</code></div>
   <button class="btn small" data-copy="mint-prompt">Copy prompt</button>
+  <p class="figcap"><em>fig. 3</em> — Specimens from the catalogue, first, middle and last.</p>
   <div class="checkrow">
     <input id="wallet-input" type="text" placeholder="Check a wallet: 0x…" autocomplete="off" spellcheck="false">
     <button class="btn small ghost" id="check-btn">Check</button>
@@ -110,6 +129,16 @@
   </ul>
   <p class="fine">Addresses above are final and the contracts are live. Check them on BscScan before trusting any copy of this page.</p>
 </div></section>
+<section class="gate rv" id="glossary"><div class="wrap">
+  <p class="gno">APPENDIX · GLOSSARY</p>
+  <h2>Words used on this ground</h2>
+  <dl class="gloss">
+    <div><dt>Spot</dt><dd>A numbered place on the stand. One belongs to one wallet, and its number never changes hands even when the spot does.</dd></div>
+    <div><dt>Stand</dt><dd>Four of them hold the ground: Kop End, Family Stand, Drum End, Flag End. Each seats 1,250 spots.</dd></div>
+    <div><dt>Collect</dt><dd>What a spot does once: it pays out 250,000 BOY to whoever holds it, then it simply keeps its seat.</dd></div>
+  </dl>
+  <p class="pull">“One agent, one spot, <em>one very good seat.</em>”</p>
+</div></section>
 </main>
 
 <footer><div class="wrap foot-in">
@@ -118,6 +147,6 @@
   <span>See you on the stand.</span>
 </div></footer>
 
-<script src="js/app.js?v=2"></script>
+<script src="js/app.js?v=3"></script>
 </body>
 </html>
