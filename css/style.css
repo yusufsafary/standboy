@@ -281,3 +281,10 @@ footer{padding:26px 0}
 .listform{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
 .listform input{flex:1;min-width:130px;background:#04100a;border:1px solid var(--line);border-radius:999px;padding:12px 18px;color:var(--ink);font-family:"PlexMono",monospace;font-size:14px}
 .listform input:focus{outline:2px solid var(--gold);outline-offset:1px}
+
+/* ===== v10: hero featured NFT (ganti maskot) ===== */
+.herofeat{display:flex;justify-content:center;margin:6px auto 22px}
+.featcard{margin:0;width:min(230px,62vw);transform:rotate(-2.5deg);transition:transform .3s ease}
+.featcard:hover{transform:rotate(0) translateY(-4px)}
+.featcard img{width:100%;aspect-ratio:1;display:block;border-radius:20px;border:2px solid var(--gold);background:#04100a;box-shadow:0 22px 44px rgba(0,0,0,.5)}
+.featcard figcaption{margin-top:11px;font-family:'PlexMono',monospace;font-size:11px;letter-spacing:.16em;color:var(--muted);text-align:center}
