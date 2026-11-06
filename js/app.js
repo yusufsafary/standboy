@@ -102,6 +102,8 @@ async function refresh() {
     tween(document.getElementById("b-left"), CONFIG.maxSupply - m);
     tween(document.getElementById("b-claimed"), cl);
     document.getElementById("b-next").textContent = m >= CONFIG.maxSupply ? "FULL" : "Nº " + fmt(m + 1);
+    window.__SB_MINTED = m;
+    if (window.SB) { window.SB.setNext(m + 1); window.SB.setStands(m); }
     if (prevM !== null && m > prevM) {
       document.querySelectorAll(".bcell").forEach((c) => c.classList.add("flash"));
       setTimeout(() => document.querySelectorAll(".bcell").forEach((c) => c.classList.remove("flash")), 900);
@@ -158,3 +160,92 @@ document.getElementById("check-btn").addEventListener("click", async () => {
     res.textContent = "Could not read the chain right now. Try again in a moment.";
   }
 });
+
+/* ===== v3: notice board, maskot bicara, find-a-spot, confetti, tabel tribun ===== */
+(function () {
+  var S = { minted: 0 };
+  function fmt(n) { return n.toLocaleString("en-US"); }
+
+  // notice board berganti
+  var notes = [
+    "Mint is free. It has always been free.",
+    "One spot per agent. House rule.",
+    "Holding a spot pays 250,000 BOY.",
+    "Claims land straight in the project wallet.",
+    "Four stands. 5,000 numbered spots."
+  ];
+  var nt = document.getElementById("notice-text"), ni = 0;
+  if (nt && !reduced) setInterval(function () {
+    nt.classList.add("fade");
+    setTimeout(function () { ni = (ni + 1) % notes.length; nt.textContent = notes[ni]; nt.classList.remove("fade"); }, 360);
+  }, 4200);
+
+  // maskot bicara
+  var mascot = document.getElementById("mascot"), bubble = document.getElementById("bubble");
+  var lines = ["Pick a spot, any spot.", "Kop End is filling up nicely.", "Every spot pays 250,000 BOY.", "See you on the stand!", "Free means free. Zero. Nothing."];
+  var li = 0, bTimer = null;
+  if (mascot && bubble) mascot.addEventListener("click", function () {
+    li = (li + 1) % lines.length;
+    bubble.textContent = (li === 1 && lastNext) ? ("Spot Nº " + lastNext + " has your name on it.") : lines[li];
+    bubble.classList.add("show");
+    mascot.classList.remove("hop"); void mascot.offsetWidth; mascot.classList.add("hop");
+    clearTimeout(bTimer); bTimer = setTimeout(function () { bubble.classList.remove("show"); }, 2400);
+  });
+
+  var lastNext = null;
+  window.SB = { setNext: function (n) { lastNext = n; } };
+
+  // tabel tribun
+  window.SB.setStands = function (minted) {
+    var bounds = [1250, 2500, 3750, 5000];
+    for (var i = 0; i < 4; i++) {
+      var lo = i === 0 ? 0 : bounds[i - 1];
+      var f = Math.max(0, Math.min(1250, minted - lo));
+      var cell = document.getElementById("st-" + i), bar = document.getElementById("sf-" + i);
+      if (cell) cell.textContent = fmt(f) + " / 1,250";
+      if (bar) bar.style.width = (f / 1250 * 100).toFixed(1) + "%";
+    }
+  };
+
+  // find me a spot
+  var fb = document.getElementById("findspot"), res = document.getElementById("spot-res");
+  if (fb && res) fb.addEventListener("click", function () {
+    var minted = (window.__SB_MINTED || 0);
+    if (minted >= 5000) { res.textContent = "Sold out. Every seat has a name now."; return; }
+    fb.disabled = true;
+    var t0 = Date.now();
+    var iv = setInterval(function () {
+      var fake = minted + 1 + Math.floor(Math.random() * (5000 - minted));
+      res.textContent = "Scanning the stand… Nº " + fmt(fake);
+      if (Date.now() - t0 > 750) {
+        clearInterval(iv);
+        var pick = minted + 1 + Math.floor(Math.random() * (5000 - minted));
+        res.textContent = "Spot Nº " + fmt(pick) + " is open. It could be yours.";
+        fb.disabled = false;
+      }
+    }, 60);
+  });
+
+  // confetti saat copy
+  var COLORS = ["#35d07f", "#ffc53d", "#ff6b4a", "#4ac3ff"];
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      if (reduced) return;
+      var r = btn.getBoundingClientRect();
+      for (var i = 0; i < 14; i++) {
+        var bit = document.createElement("span");
+        bit.className = "confetti-bit";
+        bit.style.background = COLORS[i % 4];
+        bit.style.left = (r.left + r.width / 2) + "px";
+        bit.style.top = (r.top + window.scrollY) + "px";
+        bit.style.position = "absolute";
+        document.body.appendChild(bit);
+        var dx = (Math.random() - 0.5) * 190, dy = -(30 + Math.random() * 90);
+        bit.animate([
+          { transform: "translate(0,0) rotate(0deg)", opacity: 1 },
+          { transform: "translate(" + dx + "px," + (dy + 150) + "px) rotate(" + (Math.random() * 340 - 170) + "deg)", opacity: 0 }
+        ], { duration: 750 + Math.random() * 350, easing: "cubic-bezier(.22,1,.36,1)" }).onfinish = (function (el) { return function () { el.remove(); }; })(bit);
+      }
+    });
+  });
+})();
