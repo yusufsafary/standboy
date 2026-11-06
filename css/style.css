@@ -121,3 +121,13 @@ footer{padding:26px 0}
   .gate.rv{opacity:1;transform:none;transition:none}
   .btn:hover,.bcell:hover,.spotcard:hover{transform:none}
 }
+
+/* v2.1: header HP tidak bertumpuk */
+@media (max-width:640px){
+  .top-in{flex-wrap:wrap;row-gap:8px}
+  .nav{flex-wrap:wrap;row-gap:6px}
+  .nav a{font-size:12px}
+  .brand{font-size:18px}
+  .brand img{width:32px;height:32px}
+  .x-pill{padding:5px 11px}
+}
