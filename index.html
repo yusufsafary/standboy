@@ -3,15 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>STANDBOY · One agent. One spot on the stand.</title>
-<meta name="description" content="STANDBOY: 5,000 numbered spots on the stand. Mint free through your Binance agent, claim 250,000 BOY per spot. One agent, one spot, yours forever.">
+<title>STANDBOY · Grab your spot on the stand</title>
+<meta name="description" content="STANDBOY: 5,000 numbered spots on one very loud stand. Your agent takes one for free, and holding it pays out 250,000 BOY.">
 <link rel="icon" href="favicon.svg?v=1">
 <meta property="og:title" content="STANDBOY">
-<meta property="og:description" content="One agent. One spot on the stand. Mint free, claim 250,000 BOY.">
+<meta property="og:description" content="Grab a numbered spot on the stand. Free to take, pays 250,000 BOY.">
 <link rel="stylesheet" href="css/style.css?v=3">
 </head>
 <body>
-<div class="strip"><span class="dot"></span><span id="strip-text">MINT IS LIVE · MINT FREE · ONE SPOT PER AGENT</span></div>
+<div class="strip"><span class="dot"></span><span id="strip-text">MINT IS LIVE · FREE TO TAKE · ONE PER AGENT</span></div>
 
 <header class="top"><div class="wrap top-in">
   <a class="brand" href="#top"><img src="logo.svg" alt="STANDBOY logo" width="40" height="40"><span>STANDBOY</span></a>
@@ -38,38 +38,38 @@
       </g>
     </svg>
   </div>
-  <h1>ONE AGENT.<br><em>ONE SPOT.</em></h1>
-  <p class="lede">5,000 numbered spots on the stand. Your agent takes one, free, and that spot claims <strong>250,000 BOY</strong>. Nobody can take it from you.</p>
+  <h1>GRAB YOUR SPOT<br><em>ON THE STAND.</em></h1>
+  <p class="lede">Five thousand spots, every one numbered, every one waiting for a single agent. Yours costs nothing to take, pays out <strong>250,000 BOY</strong> once you hold it, and stays yours through every season after.</p>
   <div class="cta-row">
-    <a class="btn gold" href="#claim">Claim 250,000 BOY</a>
-    <a class="btn ghost" href="#mint">Mint your spot free</a>
+    <a class="btn gold" href="#claim">Collect 250,000 BOY</a>
+    <a class="btn ghost" href="#mint">Take my spot</a>
   </div>
   <div class="board" id="board">
-    <div class="bcell"><span class="bnum" id="b-minted">·</span><span class="blab">SPOTS TAKEN</span></div>
-    <div class="bcell"><span class="bnum gold-t" id="b-left">·</span><span class="blab">SPOTS LEFT</span></div>
-    <div class="bcell"><span class="bnum" id="b-claimed">·</span><span class="blab">SPOTS CLAIMED</span></div>
-    <div class="bcell"><span class="bnum gold-t" id="b-next">·</span><span class="blab">NEXT SPOT</span></div>
+    <div class="bcell"><span class="bnum" id="b-minted">·</span><span class="blab">ON THE STAND</span></div>
+    <div class="bcell"><span class="bnum gold-t" id="b-left">·</span><span class="blab">STILL OPEN</span></div>
+    <div class="bcell"><span class="bnum" id="b-claimed">·</span><span class="blab">SPOTS PAID OUT</span></div>
+    <div class="bcell"><span class="bnum gold-t" id="b-next">·</span><span class="blab">UP NEXT</span></div>
   </div>
   <div class="stands" id="stands" aria-hidden="true"></div>
-  <p class="stands-cap">NORTH <i class="sq n"></i> · EAST <i class="sq e"></i> · SOUTH <i class="sq s"></i> · WEST <i class="sq w"></i> · 1,250 spots per stand</p>
+  <p class="stands-cap">NORTH <i class="sq n"></i> · EAST <i class="sq e"></i> · SOUTH <i class="sq s"></i> · WEST <i class="sq w"></i> · four stands, 1,250 spots each. Pick a side.</p>
 </div></section>
 
 <section class="gate rv" id="post"><div class="wrap">
   <p class="gno">GATE 01 · POST</p>
-  <h2>Say it out loud first</h2>
-  <p>Before minting, your agent prepares a post and you publish it. One post, one spot. Copy the prompt, hand it to your Binance agent, post what it gives you.</p>
-  <div class="promptbox"><code id="post-prompt">Read https://standboy.ltd/standboy-skill.md and follow the steps: prepare my STANDBOY post, let me publish it, then mint my spot.</code></div>
+  <h2>Shout it before you mint</h2>
+  <p>Supporters announce themselves. Your agent drafts a short post, you put it up for everyone to see, and only then does the mint happen. No post, no spot. House rule since day one.</p>
+  <div class="promptbox"><code id="post-prompt">Read https://standboy.ltd/standboy-skill.md and follow the steps: draft my STANDBOY post, wait for me to publish it, then mint my spot.</code></div>
   <button class="btn small" data-copy="post-prompt">Copy prompt</button>
 </div></section>
 
 <section class="gate alt rv" id="mint"><div class="wrap">
   <p class="gno">GATE 02 · MINT</p>
-  <h2>Take your spot, free</h2>
-  <p>Mint costs nothing. No price, no commission, ever. One spot per wallet, numbered forever, minted only through your agent with a Binance Agent ID.</p>
+  <h2>Minting costs nothing. Literally zero.</h2>
+  <p>No ticket price, no booking fee, no commission hiding in a corner somewhere. One spot per wallet, numbered the moment it lands in your hands, minted by your agent holding a Binance Agent ID.</p>
   <ul class="facts">
-    <li><span>Supply</span><strong>5,000 spots</strong></li>
-    <li><span>Price</span><strong>Free, 0 BNB</strong></li>
-    <li><span>Limit</span><strong>1 per wallet</strong></li>
+    <li><span>In the ground</span><strong>5,000 spots</strong></li>
+    <li><span>Cost</span><strong>Free, 0 BNB</strong></li>
+    <li><span>Per wallet</span><strong>1 spot, ever</strong></li>
     <li><span>Status</span><strong id="mint-status">Reading the stand…</strong></li>
   </ul>
   <div class="spotcards" aria-hidden="true">
@@ -77,7 +77,7 @@
     <div class="spotcard t2"><span class="sc-no">Nº 2500</span><span class="sc-stand e">EAST STAND</span><span class="sc-chip">250,000 BOY</span></div>
     <div class="spotcard t3"><span class="sc-no">Nº 5000</span><span class="sc-stand w">WEST STAND</span><span class="sc-chip">250,000 BOY</span></div>
   </div>
-  <div class="promptbox"><code id="mint-prompt">Read https://standboy.ltd/standboy-skill.md and mint my STANDBOY spot now.</code></div>
+  <div class="promptbox"><code id="mint-prompt">Read https://standboy.ltd/standboy-skill.md and grab my STANDBOY spot now.</code></div>
   <button class="btn small" data-copy="mint-prompt">Copy prompt</button>
   <div class="checkrow">
     <input id="wallet-input" type="text" placeholder="Check a wallet: 0x…" autocomplete="off" spellcheck="false">
@@ -88,34 +88,34 @@
 
 <section class="gate rv" id="claim"><div class="wrap">
   <p class="gno gold-t">GATE 03 · CLAIM</p>
-  <h2>Every spot claims 250,000 BOY</h2>
-  <p>Hold a spot, claim its BOY once. Your spot stays yours after claiming, nothing is burned. Claim fees go straight to the project wallet in the same transaction; the claim contract never holds BNB.</p>
+  <h2>Holding pays here</h2>
+  <p>Once a spot sits in your wallet, it can collect 250,000 BOY, one time only, and collecting never costs you the spot itself. You pay a small claim fee, and it lands straight in the project wallet inside the same transaction. Nothing pools inside the contract, nothing waits around for a withdrawal.</p>
   <div class="board small-board">
-    <div class="bcell"><span class="bnum" id="c-claimed">·</span><span class="blab">CLAIMED</span></div>
-    <div class="bcell"><span class="bnum gold-t" id="c-left">·</span><span class="blab">CLAIMS LEFT IN POOL</span></div>
-    <div class="bcell"><span class="bnum" id="c-status">·</span><span class="blab">CLAIM STATUS</span></div>
+    <div class="bcell"><span class="bnum" id="c-claimed">·</span><span class="blab">PAID OUT</span></div>
+    <div class="bcell"><span class="bnum gold-t" id="c-left">·</span><span class="blab">LEFT IN THE POT</span></div>
+    <div class="bcell"><span class="bnum" id="c-status">·</span><span class="blab">GATE</span></div>
   </div>
-  <div class="promptbox"><code id="claim-prompt">Read https://standboy.ltd/standboy-claim-skill.md and claim 250,000 BOY for my STANDBOY spot.</code></div>
-  <button class="btn small gold" data-copy="claim-prompt">Copy claim prompt</button>
+  <div class="promptbox"><code id="claim-prompt">Read https://standboy.ltd/standboy-claim-skill.md and collect 250,000 BOY for my STANDBOY spot.</code></div>
+  <button class="btn small gold" data-copy="claim-prompt">Copy collect prompt</button>
 </div></section>
 
 <section class="gate alt rv" id="market"><div class="wrap">
   <p class="gno">GATE 04 · MARKET</p>
-  <h2>Spots trade after mint</h2>
-  <p>Every spot is a normal ERC-721. Once spots change hands on marketplaces, links will live here. A spot that was already claimed cannot be claimed again; an unclaimed spot carries its BOY right to the new owner.</p>
+  <h2>Pass it on, or keep it forever</h2>
+  <p>A spot is a plain ERC-721, so it can travel between wallets and marketplaces like any other collectible. Hand yours over before its BOY is collected and the payout travels with it. Once a number has paid out, it is done. No second helping.</p>
   <ul class="facts">
     <li><span>NFT contract</span><strong class="mono" id="ct-nft">0x6043a590F315B9fF44aD3b3298198f89b6b4b548</strong></li>
     <li><span>BOY token</span><strong class="mono" id="ct-token">0xC2515e15586183d4E8e1D3Ec9AA4d1Bb53107eDb</strong></li>
     <li><span>Claim contract</span><strong class="mono" id="ct-claim">0x2caf4b66C2AF9bd18CcA0EAc139dA71B808fcFA2</strong></li>
   </ul>
-  <p class="fine">Contracts go live at launch; addresses above are final. Verify on BscScan before you trust any copy of this page.</p>
+  <p class="fine">Addresses above are final and the contracts are live. Check them on BscScan before trusting any copy of this page.</p>
 </div></section>
 </main>
 
 <footer><div class="wrap foot-in">
   <span>STANDBOY · standboy.ltd</span>
   <a class="foot-x" href="https://x.com/standboyltd" target="_blank" rel="noopener">X · @standboyltd</a>
-  <span>One agent. One spot. Yours forever.</span>
+  <span>See you on the stand.</span>
 </div></footer>
 
 <script src="js/app.js?v=2"></script>
