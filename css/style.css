@@ -131,3 +131,55 @@ footer{padding:26px 0}
   .brand img{width:32px;height:32px}
   .x-pill{padding:5px 11px}
 }
+
+/* ===== v4: akademis + interaktif ===== */
+@font-face{font-family:"Fraunces";src:url("../fonts/Fraunces.ttf?v=1") format("truetype");font-weight:100 900;font-style:normal}
+@font-face{font-family:"Fraunces";src:url("../fonts/Fraunces.ttf?v=1") format("truetype");font-weight:100 900;font-style:italic}
+.figcap{font-family:"PlexMono",monospace;font-size:11px;letter-spacing:.08em;color:#8fa58c;text-align:center;margin:10px auto 0;max-width:520px}
+.figcap em{font-family:"Fraunces",serif;font-style:italic;font-size:13px;color:#ffc53d;letter-spacing:0}
+.notice{display:flex;gap:10px;align-items:center;justify-content:center;margin:16px auto 4px;font-family:"PlexMono",monospace;font-size:12.5px;color:#f3efdf;min-height:26px}
+.notice-tag{background:#ffc53d;color:#23180a;font-weight:600;font-size:10.5px;letter-spacing:.14em;padding:3px 8px;border-radius:999px;flex:none}
+#notice-text{transition:opacity .35s ease}
+#notice-text.fade{opacity:0}
+.mascot{cursor:pointer;position:relative}
+.bubble{position:absolute;left:50%;top:-14px;transform:translate(-50%,-100%) scale(.8);background:#f3efdf;color:#0a1f14;font-family:"PlexMono",monospace;font-size:12px;font-weight:600;padding:8px 12px;border-radius:12px;white-space:nowrap;opacity:0;pointer-events:none;transition:all .25s cubic-bezier(.34,1.56,.64,1)}
+.bubble::after{content:"";position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);border:6px solid transparent;border-top-color:#f3efdf;border-bottom:0}
+.bubble.show{opacity:1;transform:translate(-50%,-100%) scale(1)}
+.mascot.hop svg{animation:hop .5s ease}
+@keyframes hop{35%{transform:translateY(-14px)}}
+.standtable{width:100%;border-collapse:collapse;margin:22px 0 4px;font-size:14px}
+.standtable th{font-family:"PlexMono",monospace;font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#8fa58c;text-align:left;padding:8px 6px;border-bottom:2px solid rgba(243,239,223,.25)}
+.standtable td{padding:10px 6px;border-bottom:1px solid rgba(243,239,223,.12);color:#f3efdf;font-weight:600}
+.standtable td.mono{font-family:"PlexMono",monospace;font-weight:400;font-size:13px}
+.standtable .sq{margin-right:8px}
+.fillcell{width:34%}
+.fillbar{display:block;height:8px;border-radius:99px;background:rgba(243,239,223,.14);overflow:hidden}
+.fillin{display:block;height:100%;width:0;border-radius:99px;transition:width 1s cubic-bezier(.22,1,.36,1)}
+.fillin.n{background:#35d07f}.fillin.e{background:#ffc53d}.fillin.s{background:#ff6b4a}.fillin.w{background:#4ac3ff}
+.findrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:18px 0 4px}
+.spotres{font-family:"Fraunces",serif;font-style:italic;font-size:17px;color:#ffc53d;min-height:24px;margin:0}
+.gloss{display:grid;gap:0;margin:18px 0 6px;border-top:2px solid rgba(243,239,223,.25)}
+.gloss>div{display:grid;grid-template-columns:110px 1fr;gap:14px;padding:14px 2px;border-bottom:1px solid rgba(243,239,223,.12)}
+.gloss dt{font-family:"Bungee",cursive;font-size:15px;color:#35d07f;letter-spacing:.04em}
+.gloss dd{margin:0;color:#d8d2c0;font-size:15px;line-height:1.55}
+.pull{font-family:"Fraunces",serif;font-size:clamp(22px,5.6vw,30px);line-height:1.3;color:#f3efdf;margin:26px 0 4px}
+.pull em{color:#ffc53d}
+.confetti-bit{position:absolute;width:8px;height:8px;border-radius:2px;pointer-events:none;z-index:5}
+@media (max-width:560px){
+  .gloss>div{grid-template-columns:1fr;gap:4px}
+  .fillcell{width:26%}
+  .standtable{font-size:13px}
+  .notice{font-size:11.5px;text-align:left;justify-content:flex-start}
+  .bubble{white-space:normal;width:170px;text-align:center}
+}
+
+@media (max-width:560px){
+  .standtable th:nth-child(3), .standtable td:nth-child(3){display:none}
+  .standtable td{white-space:nowrap}
+  .standtable td:first-child{white-space:normal}
+}
+.bubble{z-index:6}
+.mascot{padding-top:44px;margin-top:-20px}
+
+.tapme{position:absolute;left:calc(50% + 52px);top:2px;font-family:"PlexMono",monospace;font-size:10.5px;letter-spacing:.12em;color:#ffc53d;transform:rotate(6deg);animation:tapwig 2.6s ease-in-out infinite;z-index:6}
+@keyframes tapwig{0%,100%{transform:rotate(6deg) translateY(0)}50%{transform:rotate(2deg) translateY(-3px)}}
