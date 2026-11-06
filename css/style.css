@@ -224,3 +224,7 @@ footer{padding:26px 0}
 #game-start:disabled{opacity:.55;box-shadow:none}
 @media (max-width:560px){.gamefield{height:260px}.drop{width:48px;height:48px}}
 @media (prefers-reduced-motion:reduce){#fx{display:none}}
+
+/* ===== market NFT ===== */
+.mkt-actions{display:flex;gap:12px;flex-wrap:wrap;margin:20px 0 4px}
+.mkt-box{margin-top:16px}
