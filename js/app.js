@@ -22,6 +22,14 @@ const SEL = {
   claimsRemaining: "0x754c463f",
   seatOf: "0xb9cd92c3",
   claimedById: "0x4c80ee12",
+  balanceOf: "0x70a08231",
+  ownerOf: "0x6352211e",
+};
+const MARKET_ADDR = "0x7F2DC95214ef7182C0A6Fc5F9f94C0718aa22987";
+const MSEL = {
+  listedIds: "0x7093f47f",
+  listingOf: "0x84696967",
+  feeBps: "0x9e663553",
 };
 function fmt(n) { return n.toLocaleString("en-US"); }
 async function rpcCall(to, data) {
@@ -151,7 +159,8 @@ document.querySelectorAll("[data-copy]").forEach((btn) => {
   });
 });
 
-document.getElementById("check-btn").addEventListener("click", async () => {
+const __checkBtn = document.getElementById("check-btn");
+if (__checkBtn) __checkBtn.addEventListener("click", async () => {
   const input = document.getElementById("wallet-input").value.trim();
   const res = document.getElementById("check-res");
   if (!/^0x[0-9a-fA-F]{40}$/.test(input)) { res.textContent = "Enter a full wallet address."; return; }
@@ -359,3 +368,181 @@ document.getElementById("check-btn").addEventListener("click", async () => {
     if (input) setTimeout(function () { input.focus({ preventScroll: true }); }, reduced ? 0 : 550);
   });
 })();
+
+/* ===== market: daftar listing + aksi (dipakai beranda dan market.html) ===== */
+function standOfSpot(id) {
+  if (id <= 1250) return { name: "KOP END", cls: "n" };
+  if (id <= 2500) return { name: "FAMILY STAND", cls: "e" };
+  if (id <= 3750) return { name: "DRUM END", cls: "s" };
+  return { name: "FLAG END", cls: "w" };
+}
+function weiToBnb(w) {
+  const s = w.toString().padStart(19, "0");
+  const whole = s.slice(0, -18) || "0";
+  let frac = s.slice(-18).replace(/0+$/, "");
+  return frac ? whole + "." + frac : whole;
+}
+function bnbToWei(txt) {
+  const m = String(txt).trim().match(/^(\d+)(?:\.(\d{1,18}))?$/);
+  if (!m) return null;
+  return BigInt(m[1]) * (10n ** 18n) + BigInt((m[2] || "").padEnd(18, "0"));
+}
+async function fetchListings() {
+  const raw = await rpcCall(MARKET_ADDR, MSEL.listedIds);
+  const hex = raw.toString(16).padStart(64 * 4, "0");
+  const words = [];
+  for (let i = 0; i + 64 <= hex.length; i += 64) words.push(BigInt("0x" + hex.slice(i, i + 64)));
+  const len = Number(words[1] || 0n);
+  const ids = [];
+  for (let i = 0; i < len; i++) ids.push(Number(words[2 + i]));
+  const out = [];
+  for (const id of ids) {
+    const lo = await rpcCall(MARKET_ADDR, MSEL.listingOf.slice(0, 10) + encUint(id).slice(2));
+    const h = lo.toString(16).padStart(64 * 3, "0");
+    out.push({
+      id,
+      seller: "0x" + h.slice(24, 64),
+      price: BigInt("0x" + h.slice(64, 128)),
+      feeBps: Number(BigInt("0x" + h.slice(128, 192))),
+    });
+    const cl = await rpcCall(CONFIG.nft, SEL.claimedById.slice(0, 10) + encUint(id).slice(2));
+    out[out.length - 1].claimed = cl === 1n;
+  }
+  return out;
+}
+function myShort(a) { return a ? a.slice(0, 6) + "…" + a.slice(-4) : ""; }
+async function renderMarketCards(el, opts) {
+  if (!el) return;
+  try {
+    const list = await fetchListings();
+    const cnt = document.getElementById("mk-count");
+    if (cnt) cnt.textContent = String(list.length);
+    const fl = document.getElementById("mk-floor");
+    if (fl && list.length) {
+      let min = list[0].price;
+      for (const l of list) if (l.price < min) min = l.price;
+      fl.textContent = weiToBnb(min);
+    } else if (fl) fl.textContent = "-";
+    const shown = opts && opts.limit ? list.slice(0, opts.limit) : list;
+    if (!shown.length) {
+      el.innerHTML = '<p class="mkt-empty">No spots listed yet. First seller makes history.</p>';
+      return;
+    }
+    el.innerHTML = "";
+    for (const l of shown) {
+      const st = standOfSpot(l.id);
+      const card = document.createElement("div");
+      card.className = "mcard";
+      card.innerHTML =
+        '<img src="art/' + l.id + '.svg" alt="STANDBOY PASS #' + l.id + '" loading="lazy">' +
+        '<div class="mc-no">Nº ' + String(l.id).padStart(4, "0") + "</div>" +
+        '<div class="mc-stand ' + st.cls + '">' + st.name + "</div>" +
+        '<div class="mc-price">' + weiToBnb(l.price) + " BNB</div>" +
+        (window.SB_ACCOUNT && l.seller.toLowerCase() === window.SB_ACCOUNT
+          ? '<button class="btn small ghost mc-act" data-delist="' + l.id + '">Delist</button>'
+          : '<button class="btn small gold mc-act" data-buy="' + l.id + '" data-price="' + l.price.toString() + '">Buy</button>') +
+        '<div class="mc-note">' + (l.claimed ? "BOY already collected" : "250,000 BOY unclaimed") + "</div>";
+      el.appendChild(card);
+    }
+    el.querySelectorAll("[data-buy]").forEach((b) => b.addEventListener("click", () => sbBuy(BigInt(b.dataset.price), Number(b.dataset.buy), b)));
+    el.querySelectorAll("[data-delist]").forEach((b) => b.addEventListener("click", () => sbDelist(Number(b.dataset.delist), b)));
+  } catch (e) {
+    el.innerHTML = '<p class="mkt-empty">Market could not be read right now. Try again in a moment.</p>';
+  }
+}
+function sbSetStatus(txt, cls) {
+  const el = document.getElementById("mkt-status");
+  if (!el) return;
+  el.textContent = txt;
+  el.className = "mkt-status" + (cls ? " " + cls : "");
+}
+async function sbRequireWallet() {
+  if (!window.ethereum) { sbSetStatus("No browser wallet found. Open this page in a wallet browser or install MetaMask.", "err"); return null; }
+  const accs = await window.ethereum.request({ method: "eth_requestAccounts" });
+  if (!accs || !accs.length) return null;
+  const acct = accs[0].toLowerCase();
+  window.SB_ACCOUNT = acct;
+  const chain = await window.ethereum.request({ method: "eth_chainId" });
+  if (chain !== "0x38") {
+    try { await window.ethereum.request({ method: "wallet_switchEthereumChain", params: [{ chainId: "0x38" }] }); }
+    catch (e) { sbSetStatus("Please switch your wallet to BNB Smart Chain (chain 56).", "err"); return null; }
+  }
+  const wbtn = document.getElementById("wallet-btn");
+  if (wbtn) wbtn.textContent = myShort(acct);
+  const waddr = document.getElementById("wallet-addr");
+  if (waddr) { waddr.style.display = ""; waddr.textContent = acct; }
+  return acct;
+}
+async function sbSend(to, data, value) {
+  const acct = await sbRequireWallet();
+  if (!acct) return null;
+  const txh = await window.ethereum.request({ method: "eth_sendTransaction", params: [{ from: acct, to, data, value: "0x" + (value || 0n).toString(16) }] });
+  return txh;
+}
+async function sbReadAs(acct, to, data) {
+  const r = await window.ethereum.request({ method: "eth_call", params: [{ from: acct, to, data }, "latest"] });
+  return BigInt(r);
+}
+async function sbBuy(price, id, btn) {
+  try {
+    if (btn) btn.disabled = true;
+    sbSetStatus("Confirm the purchase in your wallet…");
+    const txh = await sbSend(MARKET_ADDR, "0x8a3a2b0f" + encUint(id).slice(2), price);
+    if (!txh) { sbSetStatus("Purchase cancelled."); if (btn) btn.disabled = false; return; }
+    sbSetStatus("Purchase sent: " + txh.slice(0, 14) + "… Reloading the market.", "ok");
+    setTimeout(() => location.reload(), 3500);
+  } catch (e) {
+    sbSetStatus("Purchase failed: " + ((e && e.message) || e).toString().slice(0, 140), "err");
+    if (btn) btn.disabled = false;
+  }
+}
+async function sbDelist(id, btn) {
+  try {
+    if (btn) btn.disabled = true;
+    sbSetStatus("Confirm the delist in your wallet…");
+    const txh = await sbSend(MARKET_ADDR, "0x2c74b6c4" + encUint(id).slice(2), 0n);
+    if (!txh) { sbSetStatus("Delist cancelled."); if (btn) btn.disabled = false; return; }
+    sbSetStatus("Delisted: " + txh.slice(0, 14) + "… Reloading the market.", "ok");
+    setTimeout(() => location.reload(), 3500);
+  } catch (e) {
+    sbSetStatus("Delist failed: " + ((e && e.message) || e).toString().slice(0, 140), "err");
+    if (btn) btn.disabled = false;
+  }
+}
+async function sbListFlow() {
+  const res = document.getElementById("list-res");
+  const setR = (t, cls) => { if (res) { res.textContent = t; res.className = "mkt-status" + (cls ? " " + cls : ""); } sbSetStatus(t, cls); };
+  try {
+    const acct = await sbRequireWallet();
+    if (!acct) return;
+    const seat = Number(await sbReadAs(acct, CONFIG.nft, SEL.seatOf.slice(0, 10) + encAddr(acct).slice(2)));
+    if (!seat) { setR("This wallet holds no STANDBOY spot yet. Mint one first, it is free."); return; }
+    const priceTxt = (document.getElementById("list-price").value || "").trim();
+    const price = bnbToWei(priceTxt);
+    if (!price || price <= 0n) { setR("Enter a price in BNB, for example 0.05.", "err"); return; }
+    const approved = await sbReadAs(acct, CONFIG.nft, "0x081812fc" + encAddr(acct).slice(2) + encUint(seat).slice(2));
+    const approvedAddr = "0x" + approved.toString(16).padStart(64, "0").slice(24);
+    if (approvedAddr.toLowerCase() !== MARKET_ADDR.toLowerCase()) {
+      setR("Step 1 of 2: approve the market to hold spot Nº " + seat + " in escrow. Confirm in your wallet…");
+      const txh = await sbSend(CONFIG.nft, "0x095ea7b3" + MARKET_ADDR.slice(2).toLowerCase().padStart(64, "0") + encUint(seat).slice(2), 0n);
+      if (!txh) { setR("Approval cancelled."); return; }
+      setR("Approval sent. Wait a few seconds, then press List my spot again to finish step 2.");
+      return;
+    }
+    setR("Step 2 of 2: listing spot Nº " + seat + " at " + priceTxt + " BNB. Confirm in your wallet…");
+    const txh2 = await sbSend(MARKET_ADDR, "0x336843f0" + encUint(seat).slice(2) + ("0x" + price.toString(16).padStart(64, "0")).slice(2), 0n);
+    if (!txh2) { setR("Listing cancelled."); return; }
+    setR("Listed! Spot Nº " + seat + " is on the market. Reloading…", "ok");
+    setTimeout(() => location.reload(), 3500);
+  } catch (e) {
+    setR("Listing failed: " + ((e && e.message) || e).toString().slice(0, 140), "err");
+  }
+}
+document.addEventListener("DOMContentLoaded", () => {
+  const cards = document.getElementById("mkt-cards");
+  if (cards) renderMarketCards(cards, { limit: cards.dataset.limit ? Number(cards.dataset.limit) : 0 });
+  const wb = document.getElementById("wallet-btn");
+  if (wb) wb.addEventListener("click", async () => { const a = await sbRequireWallet(); if (a && cards) renderMarketCards(cards, { limit: cards.dataset.limit ? Number(cards.dataset.limit) : 0 }); });
+  const lb = document.getElementById("list-btn");
+  if (lb) lb.addEventListener("click", sbListFlow);
+});
