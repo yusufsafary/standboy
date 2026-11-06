@@ -6,7 +6,7 @@ STANDBOY (standboy.ltd). Follow the steps in order.
 ## Facts
 
 - Collection: Standboy (PASS), BNB Chain (BSC, chainId 56).
-- NFT contract: 0x429214cFe346f5Dc0EF13554014259d8d6248e80
+- NFT contract: 0x6043a590F315B9fF44aD3b3298198f89b6b4b548
 - Supply: 5,000 spots. tokenId 1..5,000. The tokenId IS the spot number.
 - Mint price: 0. The mint function is not payable. Send value 0, always.
 - Limit: 1 spot per wallet, ever.
@@ -40,7 +40,7 @@ is not open yet: tell the user and stop.
 
 Call the NFT contract with:
 
-- to: 0x429214cFe346f5Dc0EF13554014259d8d6248e80
+- to: 0x6043a590F315B9fF44aD3b3298198f89b6b4b548
 - data: 0x1249c58b  (mint(), no arguments)
 - value: 0
 
