@@ -7,11 +7,11 @@ Follow the steps in order.
 ## Facts
 
 - Collection: Standboy (PASS), BNB Chain (BSC, chainId 56).
-- NFT contract: 0x429214cFe346f5Dc0EF13554014259d8d6248e80
+- NFT contract: 0x6043a590F315B9fF44aD3b3298198f89b6b4b548
 - Token: Standboy (BOY), ERC-20, contract
-  0x57bdDdE3D4D664C454eDAa6312dd9d26A0601c92. Supply fixed at
+  0xC2515e15586183d4E8e1D3Ec9AA4d1Bb53107eDb. Supply fixed at
   10,000,000,000 BOY.
-- Claim contract: 0xC97FE77E0da94Efd5Ec967ba48137cd21A62DCFE
+- Claim contract: 0x2caf4b66C2AF9bd18CcA0EAc139dA71B808fcFA2
 - Every spot claims 250,000 BOY, ONCE per tokenId (the tokenId IS the
   spot number). The spot is never burned and stays in the wallet.
 - A claim is recorded per tokenId, not per wallet. If a spot changed
@@ -51,7 +51,7 @@ Read on the claim contract:
 
 Call the claim contract with:
 
-- to: 0xC97FE77E0da94Efd5Ec967ba48137cd21A62DCFE
+- to: 0x2caf4b66C2AF9bd18CcA0EAc139dA71B808fcFA2
 - data: 0x379607f5 followed by the spot number padded to 32 bytes
   (claim(uint256))
 - value: 238087677293306 (the exact claim fee in wei)
