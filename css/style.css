@@ -79,3 +79,45 @@ footer{padding:26px 0}
   html{scroll-behavior:auto}
   .strip .dot{animation:none}
 }
+
+/* ==== Upgrade v2: cute, animatif, tetap profesional ==== */
+.x-pill{display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#23180A!important;border-radius:999px;padding:6px 14px;font-family:'PlexMonoSb',monospace;text-transform:none!important;letter-spacing:.5px!important}
+.x-pill:hover{background:var(--cream,#F3EFDF);color:#23180A!important}
+.foot-x{color:var(--gold);text-decoration:none}
+.foot-x:hover{text-decoration:underline}
+.mascot{display:flex;justify-content:center;margin-bottom:6px}
+.mascot svg{overflow:visible}
+.m-bob{animation:bob 2.6s ease-in-out infinite alternate}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-7px)}}
+.m-arm{transform-origin:114px 56px;animation:wave 1.8s ease-in-out infinite}
+@keyframes wave{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-26deg)}}
+.m-eye{animation:blink2 4.4s infinite}
+@keyframes blink2{0%,92%,100%{opacity:1}95%{opacity:.1}}
+.btn{transition:transform .15s ease,box-shadow .2s ease,background .2s ease;position:relative;overflow:hidden}
+.btn:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(255,197,61,.22)}
+.btn.gold{animation:pulseGold 2.8s ease-in-out infinite}
+@keyframes pulseGold{0%,100%{box-shadow:0 0 0 0 rgba(255,197,61,.0)}50%{box-shadow:0 0 0 7px rgba(255,197,61,.14)}}
+.bcell{transition:transform .2s ease,box-shadow .2s ease}
+.bcell:hover{transform:translateY(-3px);box-shadow:0 10px 24px rgba(0,0,0,.35)}
+.bcell.flash{animation:cellflash .8s ease}
+@keyframes cellflash{0%{box-shadow:0 0 0 0 rgba(53,208,127,.0)}30%{box-shadow:0 0 0 3px rgba(53,208,127,.55)}100%{box-shadow:0 0 0 0 rgba(53,208,127,0)}}
+.seat{transition:transform .3s ease}
+.stands.waving .seat{animation:seatwave .7s ease;animation-delay:calc(var(--c,0)*22ms)}
+@keyframes seatwave{0%,100%{transform:translateY(0)}40%{transform:translateY(-6px)}}
+.spotcards{display:flex;gap:14px;flex-wrap:wrap;margin:22px 0 4px}
+.spotcard{flex:1;min-width:150px;background:linear-gradient(160deg,#103824,#0A2417);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 12px 26px rgba(0,0,0,.3);transition:transform .25s ease,box-shadow .25s ease}
+.spotcard.t1{transform:rotate(-3deg)} .spotcard.t2{transform:rotate(1.5deg)} .spotcard.t3{transform:rotate(3.5deg)}
+.spotcard:hover{transform:rotate(0) translateY(-5px);box-shadow:0 18px 34px rgba(0,0,0,.4)}
+.sc-no{display:block;font-family:'Bungee',sans-serif;font-size:22px}
+.sc-stand{display:block;margin-top:3px;font-size:11px;letter-spacing:2.5px}
+.sc-stand.n{color:var(--n)} .sc-stand.e{color:var(--e)} .sc-stand.w{color:var(--w)}
+.sc-chip{display:inline-block;margin-top:10px;background:var(--gold);color:#23180A;font-family:'PlexMonoSb',monospace;font-size:11.5px;border-radius:999px;padding:4px 11px}
+.gate.rv{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.gate.rv.in{opacity:1;transform:none}
+.hero{position:relative}
+.hero-in{position:relative;z-index:1}
+@media (prefers-reduced-motion: reduce){
+  .m-bob,.m-arm,.m-eye,.btn.gold,.bcell.flash,.stands.waving .seat{animation:none!important}
+  .gate.rv{opacity:1;transform:none;transition:none}
+  .btn:hover,.bcell:hover,.spotcard:hover{transform:none}
+}
