@@ -8,7 +8,7 @@
 <link rel="icon" href="favicon.svg?v=1">
 <meta property="og:title" content="STANDBOY">
 <meta property="og:description" content="Grab a numbered spot on the stand. Free to take, pays 250,000 BOY.">
-<link rel="stylesheet" href="css/style.css?v=5">
+<link rel="stylesheet" href="css/style.css?v=6">
 </head>
 <body>
 <div class="strip"><span class="dot"></span><span id="strip-text">MINT IS LIVE · FREE TO TAKE · ONE PER AGENT</span></div>
@@ -123,13 +123,20 @@
 <section class="gate alt rv" id="market"><div class="wrap">
   <p class="gno">GATE 04 · MARKET</p>
   <h2>Pass it on, or keep it forever</h2>
-  <p>A spot is a plain ERC-721, so it can travel between wallets and marketplaces like any other collectible. Hand yours over before its BOY is collected and the payout travels with it. Once a number has paid out, it is done. No second helping.</p>
+  <p>A spot is a plain ERC-721, so it can travel between wallets and change hands on Element Market, the NFT marketplace on BNB Chain. Hand yours over before its BOY is collected and the payout travels with it. Once a number has paid out, it is done. No second helping.</p>
+  <div class="mkt-actions">
+    <a class="btn gold" href="https://element.market/search?q=STANDBOY%20PASS" target="_blank" rel="noopener">Browse spots on Element</a>
+    <button class="btn ghost" id="mkt-check-btn" type="button">Check my spot value</button>
+  </div>
+  <div class="promptbox mkt-box"><code id="mkt-prompt">Read https://standboy.ltd/standboy-skill.md and check my STANDBOY spot: which number I hold, and whether its 250,000 BOY is still unclaimed.</code></div>
+  <button class="btn small" data-copy="mkt-prompt">Copy prompt</button>
   <ul class="facts">
     <li><span>NFT contract</span><strong class="mono" id="ct-nft">0x6043a590F315B9fF44aD3b3298198f89b6b4b548</strong></li>
     <li><span>BOY token</span><strong class="mono" id="ct-token">0xC2515e15586183d4E8e1D3Ec9AA4d1Bb53107eDb</strong></li>
     <li><span>Claim contract</span><strong class="mono" id="ct-claim">0x2caf4b66C2AF9bd18CcA0EAc139dA71B808fcFA2</strong></li>
   </ul>
-  <p class="fine">Addresses above are final and the contracts are live. Check them on BscScan before trusting any copy of this page.</p>
+  <p class="fine">Trading happens on Element Market. This page never asks you to connect a wallet. Check the contract addresses on BscScan before trusting any copy of this page.</p>
+  <p class="figcap"><em>fig. 6</em> — Market gate. Doors open outward, to the marketplace.</p>
 </div></section>
 <section class="gate alt rv" id="play"><div class="wrap">
   <p class="gno">BONUS ROUND · PLAY</p>
@@ -178,6 +185,6 @@
   <span>See you on the stand.</span>
 </div></footer>
 
-<script src="js/app.js?v=4"></script>
+<script src="js/app.js?v=5"></script>
 </body>
 </html>
