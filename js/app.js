@@ -347,3 +347,15 @@ document.getElementById("check-btn").addEventListener("click", async () => {
     }, 1000);
   });
 })();
+
+/* tombol market: arahkan ke checker wallet di Gate 02 */
+(function () {
+  var b = document.getElementById("mkt-check-btn");
+  if (!b) return;
+  b.addEventListener("click", function () {
+    var input = document.getElementById("wallet-input");
+    var mint = document.getElementById("mint");
+    if (mint) mint.scrollIntoView({ behavior: reduced ? "auto" : "smooth", block: "center" });
+    if (input) setTimeout(function () { input.focus({ preventScroll: true }); }, reduced ? 0 : 550);
+  });
+})();
