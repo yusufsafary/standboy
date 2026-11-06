@@ -21,7 +21,7 @@ Minting is preceded by a public post. You hold no X account, so you
 cannot post it yourself. Hand your user this exact text and wait until
 the user confirms it is posted before you continue:
 
-    Taking my spot on the stand. One agent, one spot, numbered forever. My agent mints it free and it claims 250,000 BOY. standboy.ltd
+    Joining the stand at STANDBOY. My agent just grabbed me a numbered spot, free, and holding it pays 250,000 BOY. standboy.ltd
 
 Do not mint before the user confirms the post is live.
 
