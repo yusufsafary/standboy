@@ -183,3 +183,44 @@ footer{padding:26px 0}
 
 .tapme{position:absolute;left:calc(50% + 52px);top:2px;font-family:"PlexMono",monospace;font-size:10.5px;letter-spacing:.12em;color:#ffc53d;transform:rotate(6deg);animation:tapwig 2.6s ease-in-out infinite;z-index:6}
 @keyframes tapwig{0%,100%{transform:rotate(6deg) translateY(0)}50%{transform:rotate(2deg) translateY(-3px)}}
+
+/* ===== v5: game studio layer ===== */
+.hero{position:relative;overflow:hidden;background:
+  radial-gradient(ellipse 60% 34% at 18% -4%,rgba(255,233,168,.14),transparent 70%),
+  radial-gradient(ellipse 60% 34% at 82% -4%,rgba(255,233,168,.14),transparent 70%),
+  radial-gradient(ellipse 90% 60% at 50% 0%,var(--bg2),var(--bg))}
+#fx{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:.8}
+.hero-in{position:relative;z-index:1}
+.hud{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.hud-chip{font-family:"PlexMono",monospace;font-size:10.5px;letter-spacing:.14em;color:var(--muted);background:rgba(13,42,27,.85);border:1px solid var(--line);border-radius:999px;padding:6px 12px;display:inline-flex;gap:7px;align-items:center}
+.hud-chip strong{color:var(--ink)}
+.hud-chip.gold-chip{color:#23180a;background:var(--gold);border-color:var(--gold);font-weight:600}
+.xpbar{display:flex;gap:10px;align-items:center;max-width:560px;margin:18px auto 0;font-family:"PlexMono",monospace}
+.xp-lab{font-size:10.5px;letter-spacing:.16em;color:var(--gold);flex:none}
+.xp-track{flex:1;height:12px;border-radius:99px;background:#0d2a1b;border:1px solid var(--line);overflow:hidden}
+.xp-fill{display:block;height:100%;width:0;border-radius:99px;background:linear-gradient(90deg,#35d07f,#ffc53d);transition:width 1.1s cubic-bezier(.22,1,.36,1)}
+.xp-num{font-size:12px;color:var(--ink);flex:none;min-width:38px;text-align:right}
+.btn{box-shadow:0 4px 0 #a97b12;transition:transform .12s ease,box-shadow .12s ease,filter .15s ease}
+.btn.ghost{box-shadow:0 4px 0 #0d2a1b}
+.btn:hover{filter:brightness(1.06);transform:translateY(-1px)}
+.btn:active{transform:translateY(3px) scale(.98);box-shadow:0 1px 0 #a97b12}
+.bcell{box-shadow:inset 0 0 0 1px rgba(243,239,223,.03),0 6px 14px rgba(0,0,0,.25)}
+.spotcard{box-shadow:0 10px 20px rgba(0,0,0,.35)}
+.pitch{position:relative;height:64px;background:linear-gradient(180deg,#0e3a22,#0a2c19);border-top:3px solid #f3efdf;overflow:hidden}
+.pitch-line{position:absolute;left:50%;top:0;bottom:0;width:3px;background:rgba(243,239,223,.75);transform:translateX(-50%)}
+.pitch-circle{position:absolute;left:50%;top:50%;width:74px;height:74px;border:3px solid rgba(243,239,223,.75);border-radius:50%;transform:translate(-50%,-50%)}
+.gamebox{margin:22px 0 6px;background:#04100a;border:1px solid var(--line);border-radius:18px;padding:18px;text-align:center}
+.game-hud{display:flex;gap:10px;justify-content:space-between;font-family:"PlexMono",monospace;font-size:12px;letter-spacing:.12em;color:var(--muted);border:1px solid var(--line);border-radius:10px;padding:9px 14px;background:var(--panel)}
+.game-hud strong{color:var(--gold);font-size:15px}
+.gamefield{position:relative;height:300px;margin:14px 0;border-radius:14px;overflow:hidden;background:
+  repeating-linear-gradient(90deg,#0e3a22 0 46px,#0c3320 46px 92px);border:1px solid var(--line);touch-action:manipulation}
+.game-idle{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:#cfe3cf;font-family:"PlexMono",monospace;font-size:13.5px;padding:20px;text-align:center}
+.drop{position:absolute;width:44px;height:44px;border-radius:50%;border:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-family:"Bungee",cursive;font-size:15px;color:#23180a;background:var(--gold);box-shadow:0 4px 10px rgba(0,0,0,.4);animation:dropfall linear forwards;padding:0}
+.drop.green{background:var(--green);color:#06251a}
+.drop.pop{animation:dropop .18s ease forwards}
+@keyframes dropfall{from{transform:translateY(-52px) rotate(-6deg)}to{transform:translateY(310px) rotate(8deg)}}
+@keyframes dropop{to{transform:scale(1.7);opacity:0}}
+.game-res{font-family:"Fraunces",serif;font-style:italic;font-size:18px;color:var(--gold);min-height:26px;margin:10px 0 0}
+#game-start:disabled{opacity:.55;box-shadow:none}
+@media (max-width:560px){.gamefield{height:260px}.drop{width:48px;height:48px}}
+@media (prefers-reduced-motion:reduce){#fx{display:none}}
