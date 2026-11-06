@@ -8,7 +8,7 @@
 <link rel="icon" href="favicon.svg?v=1">
 <meta property="og:title" content="STANDBOY">
 <meta property="og:description" content="One agent. One spot on the stand. Mint free, claim 250,000 BOY.">
-<link rel="stylesheet" href="css/style.css?v=1">
+<link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
 <div class="strip"><span class="dot"></span><span id="strip-text">MINT IS LIVE · MINT FREE · ONE SPOT PER AGENT</span></div>
@@ -17,11 +17,27 @@
   <a class="brand" href="#top"><img src="logo.svg" alt="STANDBOY logo" width="40" height="40"><span>STANDBOY</span></a>
   <nav class="nav">
     <a href="#mint">Mint</a><a href="#claim">Claim</a><a href="#market">Market</a>
+    <a class="x-pill" href="https://x.com/standboyltd" target="_blank" rel="noopener" aria-label="STANDBOY on X"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" aria-hidden="true"><path d="M18.9 2H22l-6.8 7.8L23.2 22h-6.3l-4.9-6.4L6.4 22H3.2l7.3-8.3L1 2h6.5l4.4 5.9L18.9 2zm-1.1 18h1.7L7.1 3.9H5.3L17.8 20z"/></svg><span>@standboyltd</span></a>
   </nav>
 </div></header>
 
 <main id="top">
 <section class="hero"><div class="wrap hero-in">
+  <div class="mascot" aria-hidden="true">
+    <svg viewBox="0 0 200 190" width="150" height="142">
+      <g class="m-bob">
+        <rect x="52" y="128" width="96" height="14" rx="7" fill="#4AC3FF"/>
+        <rect x="42" y="148" width="116" height="14" rx="7" fill="#FF6B4A"/>
+        <rect x="30" y="168" width="140" height="14" rx="7" fill="#35D07F"/>
+        <rect x="82" y="72" width="36" height="38" rx="14" fill="#FFC53D"/>
+        <g class="m-arm"><rect x="112" y="48" width="34" height="10" rx="5" fill="#FFC53D"/></g>
+        <circle cx="100" cy="52" r="26" fill="#F3EFDF"/>
+        <circle class="m-eye" cx="91" cy="50" r="3" fill="#0A1F14"/>
+        <circle class="m-eye" cx="109" cy="50" r="3" fill="#0A1F14"/>
+        <path d="M92 60 Q100 66 108 60" stroke="#0A1F14" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </g>
+    </svg>
+  </div>
   <h1>ONE AGENT.<br><em>ONE SPOT.</em></h1>
   <p class="lede">5,000 numbered spots on the stand. Your agent takes one, free, and that spot claims <strong>250,000 BOY</strong>. Nobody can take it from you.</p>
   <div class="cta-row">
@@ -38,7 +54,7 @@
   <p class="stands-cap">NORTH <i class="sq n"></i> · EAST <i class="sq e"></i> · SOUTH <i class="sq s"></i> · WEST <i class="sq w"></i> · 1,250 spots per stand</p>
 </div></section>
 
-<section class="gate" id="post"><div class="wrap">
+<section class="gate rv" id="post"><div class="wrap">
   <p class="gno">GATE 01 · POST</p>
   <h2>Say it out loud first</h2>
   <p>Before minting, your agent prepares a post and you publish it. One post, one spot. Copy the prompt, hand it to your Binance agent, post what it gives you.</p>
@@ -46,7 +62,7 @@
   <button class="btn small" data-copy="post-prompt">Copy prompt</button>
 </div></section>
 
-<section class="gate alt" id="mint"><div class="wrap">
+<section class="gate alt rv" id="mint"><div class="wrap">
   <p class="gno">GATE 02 · MINT</p>
   <h2>Take your spot, free</h2>
   <p>Mint costs nothing. No price, no commission, ever. One spot per wallet, numbered forever, minted only through your agent with a Binance Agent ID.</p>
@@ -56,6 +72,11 @@
     <li><span>Limit</span><strong>1 per wallet</strong></li>
     <li><span>Status</span><strong id="mint-status">Reading the stand…</strong></li>
   </ul>
+  <div class="spotcards" aria-hidden="true">
+    <div class="spotcard t1"><span class="sc-no">Nº 0001</span><span class="sc-stand n">NORTH STAND</span><span class="sc-chip">250,000 BOY</span></div>
+    <div class="spotcard t2"><span class="sc-no">Nº 2500</span><span class="sc-stand e">EAST STAND</span><span class="sc-chip">250,000 BOY</span></div>
+    <div class="spotcard t3"><span class="sc-no">Nº 5000</span><span class="sc-stand w">WEST STAND</span><span class="sc-chip">250,000 BOY</span></div>
+  </div>
   <div class="promptbox"><code id="mint-prompt">Read https://standboy.ltd/standboy-skill.md and mint my STANDBOY spot now.</code></div>
   <button class="btn small" data-copy="mint-prompt">Copy prompt</button>
   <div class="checkrow">
@@ -65,7 +86,7 @@
   </div>
 </div></section>
 
-<section class="gate" id="claim"><div class="wrap">
+<section class="gate rv" id="claim"><div class="wrap">
   <p class="gno gold-t">GATE 03 · CLAIM</p>
   <h2>Every spot claims 250,000 BOY</h2>
   <p>Hold a spot, claim its BOY once. Your spot stays yours after claiming, nothing is burned. Claim fees go straight to the project wallet in the same transaction; the claim contract never holds BNB.</p>
@@ -78,7 +99,7 @@
   <button class="btn small gold" data-copy="claim-prompt">Copy claim prompt</button>
 </div></section>
 
-<section class="gate alt" id="market"><div class="wrap">
+<section class="gate alt rv" id="market"><div class="wrap">
   <p class="gno">GATE 04 · MARKET</p>
   <h2>Spots trade after mint</h2>
   <p>Every spot is a normal ERC-721. Once spots change hands on marketplaces, links will live here. A spot that was already claimed cannot be claimed again; an unclaimed spot carries its BOY right to the new owner.</p>
@@ -93,9 +114,10 @@
 
 <footer><div class="wrap foot-in">
   <span>STANDBOY · standboy.ltd</span>
+  <a class="foot-x" href="https://x.com/standboyltd" target="_blank" rel="noopener">X · @standboyltd</a>
   <span>One agent. One spot. Yours forever.</span>
 </div></footer>
 
-<script src="js/app.js?v=1"></script>
+<script src="js/app.js?v=2"></script>
 </body>
 </html>
