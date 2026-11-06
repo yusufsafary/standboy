@@ -1,5 +1,6 @@
 // STANDBOY live board: read-only chain reads (RPC race), stands visual,
 // copy buttons, wallet check. No wallet connection, no transactions.
+const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const CONFIG = {
   nft: "0x6043a590F315B9fF44aD3b3298198f89b6b4b548",
   token: "0xC2515e15586183d4E8e1D3Ec9AA4d1Bb53107eDb",
@@ -104,6 +105,10 @@ async function refresh() {
     document.getElementById("b-next").textContent = m >= CONFIG.maxSupply ? "FULL" : "Nº " + fmt(m + 1);
     window.__SB_MINTED = m;
     if (window.SB) { window.SB.setNext(m + 1); window.SB.setStands(m); }
+    var xp = document.getElementById("xp-fill"), xn = document.getElementById("xp-num"), hl = document.getElementById("hud-level");
+    if (xp) xp.style.width = (m / CONFIG.maxSupply * 100).toFixed(1) + "%";
+    if (xn) xn.textContent = (m / CONFIG.maxSupply * 100).toFixed(1) + "%";
+    if (hl) hl.textContent = m >= 3750 ? "FLAG END" : m >= 2500 ? "DRUM END" : m >= 1250 ? "FAMILY STAND" : "KOP END";
     if (prevM !== null && m > prevM) {
       document.querySelectorAll(".bcell").forEach((c) => c.classList.add("flash"));
       setTimeout(() => document.querySelectorAll(".bcell").forEach((c) => c.classList.remove("flash")), 900);
@@ -247,5 +252,98 @@ document.getElementById("check-btn").addEventListener("click", async () => {
         ], { duration: 750 + Math.random() * 350, easing: "cubic-bezier(.22,1,.36,1)" }).onfinish = (function (el) { return function () { el.remove(); }; })(bit);
       }
     });
+  });
+})();
+
+/* ===== v4 game layer: partikel hero, parallax maskot, mini-game ===== */
+(function () {
+  // partikel ambience hero (debu lampu stadion)
+  var cv = document.getElementById("fx");
+  if (cv && !reduced) {
+    var ctx = cv.getContext("2d"), W = 0, H = 0, P = [];
+    function size() {
+      var r = cv.parentElement.getBoundingClientRect();
+      W = cv.width = Math.floor(r.width); H = cv.height = Math.floor(r.height);
+    }
+    size(); addEventListener("resize", size);
+    for (var i = 0; i < 42; i++) P.push({ x: Math.random(), y: Math.random(), s: Math.random() * 2 + 0.6, v: Math.random() * 0.22 + 0.05, o: Math.random() * 0.5 + 0.15 });
+    (function loop() {
+      if (!document.hidden && W) {
+        ctx.clearRect(0, 0, W, H);
+        P.forEach(function (p) {
+          p.y -= p.v / H * 8; if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
+          ctx.globalAlpha = p.o; ctx.fillStyle = "#FFE9A8";
+          ctx.beginPath(); ctx.arc(p.x * W, p.y * H, p.s, 0, 7); ctx.fill();
+        });
+        ctx.globalAlpha = 1;
+      }
+      requestAnimationFrame(loop);
+    })();
+    // parallax ringan mengikuti pointer di hero
+    var hero = cv.parentElement, mascotEl = document.getElementById("mascot");
+    hero.addEventListener("pointermove", function (e) {
+      if (!mascotEl) return;
+      var r = hero.getBoundingClientRect();
+      var dx = (e.clientX - r.left) / r.width - 0.5, dy = (e.clientY - r.top) / r.height - 0.5;
+      mascotEl.style.transform = "translate(" + (dx * 10).toFixed(1) + "px," + (dy * 6).toFixed(1) + "px)";
+    });
+  }
+
+  // mini-game: Catch a falling spot
+  var startBtn = document.getElementById("game-start"), field = document.getElementById("gamefield"),
+      sEl = document.getElementById("g-score"), tEl = document.getElementById("g-time"),
+      bEl = document.getElementById("g-best"), resEl = document.getElementById("game-res"),
+      idle = document.getElementById("game-idle");
+  if (!startBtn || !field) return;
+  var best = 0; try { best = parseInt(localStorage.getItem("sb-best") || "0", 10) || 0; } catch (e) {}
+  if (bEl) bEl.textContent = best;
+  var playing = false, score = 0, spawnIv = null, tickIv = null;
+  function spawn() {
+    if (!playing) return;
+    var d = document.createElement("button");
+    var green = Math.random() < 0.22;
+    d.type = "button"; d.className = "drop" + (green ? " green" : "");
+    d.textContent = green ? "+3" : "+1";
+    d.style.left = (4 + Math.random() * 86) + "%";
+    d.style.animationDuration = (1.5 + Math.random() * 1.1) + "s";
+    d.addEventListener("pointerdown", function (ev) {
+      ev.preventDefault();
+      if (!playing || d.classList.contains("pop")) return;
+      score += green ? 3 : 1;
+      if (sEl) sEl.textContent = score;
+      d.classList.add("pop");
+      setTimeout(function () { d.remove(); }, 190);
+    });
+    d.addEventListener("animationend", function () { d.remove(); });
+    field.appendChild(d);
+  }
+  startBtn.addEventListener("click", function () {
+    if (playing) return;
+    playing = true; score = 0;
+    if (sEl) sEl.textContent = "0";
+    if (resEl) resEl.textContent = "";
+    if (idle) idle.style.display = "none";
+    field.querySelectorAll(".drop").forEach(function (d) { d.remove(); });
+    startBtn.disabled = true; startBtn.textContent = "Playing…";
+    var left = 20;
+    if (tEl) tEl.textContent = left;
+    spawnIv = setInterval(spawn, 560); spawn();
+    tickIv = setInterval(function () {
+      left -= 1;
+      if (tEl) tEl.textContent = Math.max(0, left);
+      if (left <= 0) {
+        clearInterval(tickIv); clearInterval(spawnIv);
+        playing = false;
+        field.querySelectorAll(".drop").forEach(function (d) { d.remove(); });
+        if (score > best) {
+          best = score; try { localStorage.setItem("sb-best", String(best)); } catch (e) {}
+          if (bEl) bEl.textContent = best;
+          if (resEl) resEl.textContent = "New best: " + score + ". The stand applauds politely.";
+        } else {
+          if (resEl) resEl.textContent = "Time. You caught " + score + ". Best stays " + best + ".";
+        }
+        startBtn.disabled = false; startBtn.textContent = "Play again";
+      }
+    }, 1000);
   });
 })();
