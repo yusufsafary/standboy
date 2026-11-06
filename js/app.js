@@ -112,7 +112,7 @@ async function refresh() {
     tween(document.getElementById("c-left"), Number(cLeft));
     document.getElementById("c-status").textContent = cOpen === 1n ? "OPEN" : "SOON";
     document.getElementById("strip-text").textContent =
-      (mOpen === 1n ? "MINT IS LIVE" : "STANDS FILLING SOON") + " · MINT FREE · ONE SPOT PER AGENT";
+      (mOpen === 1n ? "MINT IS LIVE" : "STANDS FILLING SOON") + " · FREE TO TAKE · ONE PER AGENT";
     drawStands(m);
     window.STANDBOY = { minted: m, claimed: cl };
   } catch (e) {
